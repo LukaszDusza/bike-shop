@@ -23,7 +23,7 @@ public class Bike {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @Column(name = "stock", nullable = false, )
+    @Column(name = "stock", nullable = false)
     private int stock;
 
 
