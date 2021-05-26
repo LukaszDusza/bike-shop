@@ -26,4 +26,9 @@ public class BikeService {
         return bikeRepository.save(bike);
     }
 
+    public void deleteBikeById(Long id){
+        bikeRepository.delete(getBikeById(id));
+
+    }
+
 }

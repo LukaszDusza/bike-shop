@@ -38,4 +38,13 @@ public class BikeRestController {
     public ResponseEntity<Bike> createBike(@RequestBody Bike bike){
         return new ResponseEntity<>(bikeService.createBike(bike), HttpStatus.CREATED);
     }
+    @DeleteMapping("/bikes/{id}")
+    public ResponseEntity<Bike> deleteBikeById(@PathVariable Long id){
+        Bike bike = bikeService.getBikeById(id);
+        if (bike == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else{
+        bikeService.deleteBikeById(id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }
+    }
 }
