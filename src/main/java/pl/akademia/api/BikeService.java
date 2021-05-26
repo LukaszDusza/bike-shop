@@ -17,4 +17,10 @@ public class BikeService {
   public List<Bike> getAllBikes() {
     return bikeRepository.findAll();
   }
+
+  public Bike getBikeById(Long id) {
+    return bikeRepository.findById(id).orElse(null);
+  }
+
+
 }
