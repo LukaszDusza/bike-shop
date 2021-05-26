@@ -22,5 +22,9 @@ public class BikeService {
     return bikeRepository.findById(id).orElse(null);
   }
 
+  public Bike createBike(Bike bike) {
+    return bikeRepository.save(bike);
+  }
+
 
 }
