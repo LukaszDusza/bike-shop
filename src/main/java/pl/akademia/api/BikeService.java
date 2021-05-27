@@ -3,6 +3,7 @@ package pl.akademia.api;
 import org.springframework.stereotype.Service;
 import pl.akademia.api.model.Bike;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -38,5 +39,13 @@ public class BikeService {
         b.setType(bike.getType());
         b.setStock(bike.getStock());
         return b;
+    }
+
+    public Bike updateBikePriceById(Long id, BigDecimal price) throws BikeNotFoundException {
+        Bike bike = getBikeById(id);
+        if(bike == null) throw new BikeNotFoundException();
+        bike.setPrice(price);
+        bikeRepository.save(bike);
+        return bike;
     }
 }

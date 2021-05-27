@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.akademia.api.model.Bike;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -51,6 +52,16 @@ public class BikeRestController {
     public ResponseEntity<Bike> updateBikeById(@PathVariable Long id, @RequestBody Bike bike) {
         try {
             bikeService.updateBikeById(id, bike);
+        } catch (BikeNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.RESET_CONTENT);
+    }
+
+    @PatchMapping("bikes/{id}")
+    public ResponseEntity<Bike> updateBikePriceById(@PathVariable Long id, @RequestBody BigDecimal price){
+        try {
+            bikeService.updateBikePriceById(id, price);
         } catch (BikeNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
