@@ -38,14 +38,13 @@ public class BikeService {
         b.setPrice(bike.getPrice());
         b.setType(bike.getType());
         b.setStock(bike.getStock());
-        return b;
+        return bikeRepository.save(b);
     }
 
     public Bike updateBikePriceById(Long id, BigDecimal price) throws BikeNotFoundException {
         Bike bike = getBikeById(id);
         if(bike == null) throw new BikeNotFoundException();
         bike.setPrice(price);
-        bikeRepository.save(bike);
-        return bike;
+        return bikeRepository.save(bike);
     }
 }
