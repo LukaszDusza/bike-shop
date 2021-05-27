@@ -28,7 +28,15 @@ public class BikeService {
 
     public void deleteBikeById(Long id){
         bikeRepository.delete(getBikeById(id));
-
     }
 
+    public Bike updateBikeById(Long id, Bike bike) throws BikeNotFoundException {
+        Bike b = getBikeById(id);
+        if(b == null) throw new BikeNotFoundException();
+        b.setBrand(bike.getBrand());
+        b.setPrice(bike.getPrice());
+        b.setType(bike.getType());
+        b.setStock(bike.getStock());
+        return b;
+    }
 }

@@ -44,7 +44,16 @@ public class BikeRestController {
         if (bike == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else{
         bikeService.deleteBikeById(id);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.GONE);
         }
+    }
+    @PutMapping("/bikes/{id}")
+    public ResponseEntity<Bike> updateBikeById(@PathVariable Long id, @RequestBody Bike bike) {
+        try {
+            bikeService.updateBikeById(id, bike);
+        } catch (BikeNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.RESET_CONTENT);
     }
 }
