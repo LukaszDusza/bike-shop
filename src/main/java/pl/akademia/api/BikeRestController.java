@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.akademia.api.model.Bike;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 //@Controller // szukal widokow, zwracl pliki stringowe do html
@@ -44,6 +45,25 @@ public class BikeRestController {
             bikeService.createBike(bike);
         return  new ResponseEntity<>(bike,HttpStatus.CREATED);
     }
+
+    @DeleteMapping("bikes/{id}")
+    public ResponseEntity<Bike> deleteBikeById(@PathVariable long id){
+        bikeService.deleteBike(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("bikes/{id}")
+    public ResponseEntity<Bike> updateBikeById(@PathVariable long id,
+                                               @RequestParam String type, @RequestParam String brand,
+                                               @RequestParam BigDecimal price, @RequestParam int stock){
+        bikeService.updateBike(id,type,brand,price,stock);
+        return  new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
+
+
 
 
 }
