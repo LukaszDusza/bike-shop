@@ -6,4 +6,7 @@ import pl.akademia.api.model.Bike;
 
 @Repository
 public interface BikeRepository extends JpaRepository<Bike, Long> {
+
+    Bike findBikeByType(String type);
+
 }

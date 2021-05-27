@@ -39,4 +39,19 @@ public class BikeRestController {
     public ResponseEntity<Bike> createBike(@RequestBody Bike bike){
         return new ResponseEntity<>(bikeService.createBike(bike), HttpStatus.CREATED);
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Bike> updateBike(@PathVariable Long id, @RequestBody Bike bike){
+        return new ResponseEntity<>(bikeService.updateBike(id, bike), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteBike/{id}")
+    public ResponseEntity<Bike> deleteBike(@PathVariable Long id){
+        return new ResponseEntity<>(bikeService.delete(id), HttpStatus.GONE);
+    }
+
+    @PatchMapping("/editBikeType/{id}/{type}")
+    public ResponseEntity<Bike> editBike(@PathVariable Long id, @PathVariable String type){
+        return new ResponseEntity<>(bikeService.patchBikeType(id,type), HttpStatus.OK);
+    }
 }

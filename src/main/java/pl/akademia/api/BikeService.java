@@ -26,4 +26,28 @@ public class BikeService {
         return bikeRepository.save(bike);
     }
 
+    //PUT http method
+    public Bike updateBike(Long id, Bike bike){
+        Bike bikeEdited = bikeRepository.findById(id).orElse(null);
+        bikeEdited.setType(bike.getType());
+        bikeEdited.setBrand(bike.getBrand());
+        bikeEdited.setPrice(bike.getPrice());
+        bikeEdited.setStock(bike.getStock());
+        return bikeRepository.save(bikeEdited);
+    }
+
+    // DELETE http method
+    public Bike delete(Long id){
+        Bike bike = getBikeById(id);
+        bikeRepository.delete(bike);
+        return bike;
+    }
+
+    // PATCH http method
+    public Bike patchBikeType(Long id, String type){
+        Bike bikeEdited = bikeRepository.findById(id).orElse(null);
+        bikeEdited.setType(type);
+        return bikeRepository.save(bikeEdited);
+    }
+
 }
