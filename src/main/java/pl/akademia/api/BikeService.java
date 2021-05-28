@@ -3,6 +3,7 @@ package pl.akademia.api;
 import org.springframework.stereotype.Service;
 import pl.akademia.api.model.Bike;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -22,9 +23,12 @@ public class BikeService {
     return bikeRepository.findById(id).orElse(null);
   }
 
-  public Bike createBike(Bike bike) {
+  public Bike createOrUpdateBike(Bike bike) {
     return bikeRepository.save(bike);
   }
 
-
+  @Transactional
+  public int deleteBikeById(Long id) {
+    return bikeRepository.deleteBikeById(id);
+  }
 }

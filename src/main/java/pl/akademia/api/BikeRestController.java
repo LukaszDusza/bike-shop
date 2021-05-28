@@ -2,6 +2,7 @@ package pl.akademia.api;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,7 @@ public class BikeRestController {
   @GetMapping("/bikes")
   public ResponseEntity<List<Bike>> getAllBikes() {
     List<Bike> bikes = bikeService.getAllBikes();
-    if(bikes.isEmpty()) {
+    if (bikes.isEmpty()) {
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     return new ResponseEntity<>(bikes, HttpStatus.OK);
@@ -41,8 +42,20 @@ public class BikeRestController {
   }
 
   @PostMapping("/bikes")
-  public ResponseEntity<Bike> createBike(@RequestBody Bike bike) {
-    return new ResponseEntity<>(bikeService.createBike(bike), HttpStatus.CREATED);
+  public ResponseEntity<Bike> createOrUpdateBike(@RequestBody Bike bike) {
+    if (bike.getId() == null) {
+      return new ResponseEntity<>(bikeService.createOrUpdateBike(bike), HttpStatus.CREATED);
+    }
+    return new ResponseEntity<>(bikeService.createOrUpdateBike(bike), HttpStatus.OK);
+  }
+
+  @DeleteMapping("/bikes/{id}/delete")
+  public ResponseEntity<?> deleteBikeById(@PathVariable Long id) {
+    if (bikeService.deleteBikeById(id) > 0) {
+      return new ResponseEntity<>(HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
   }
 
 
