@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import pl.akademia.api.model.Bike;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 
 @Repository
 public interface BikeRepository extends JpaRepository<Bike, Long> {
@@ -16,4 +17,8 @@ public interface BikeRepository extends JpaRepository<Bike, Long> {
   @Query(value = "delete from Bike b where b.id = :id") // jpql
   int deleteBikeById(Long id);
 
+  @Modifying
+  @Query(value = "update Bike b set b.price = b.price + :value")
+  // @Query(nativeQuery = true, value = "update bike set price = price + :value")
+  void switchPrice(BigDecimal value);
 }

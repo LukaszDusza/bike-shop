@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.akademia.api.model.Bike;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -56,6 +57,10 @@ public class BikeRestController {
     } else {
       return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
+  }
+  @GetMapping("/bikes/{value}/price")
+  public void switchPrice(@PathVariable BigDecimal value) {
+    bikeService.switchPrice(value);
   }
 
 
