@@ -36,7 +36,7 @@ public class BikeRestController {
     }
 
     @PostMapping("/bikes")
-    public ResponseEntity<Bike> createBike(@RequestBody Bike bike){
+    public ResponseEntity<Bike> createOrUpdateBike(@RequestBody Bike bike){
         if (bike.getId() == null) return new ResponseEntity<>(bikeService.createOrUpdateBike(bike), HttpStatus.CREATED);
         else return new ResponseEntity<>(bikeService.createOrUpdateBike(bike), HttpStatus.OK);
     }
