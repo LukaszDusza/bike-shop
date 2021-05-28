@@ -67,4 +67,12 @@ public class BikeService {
         bike.setBrand(brandUpdate.getBrand());
 
     }
+    @Transactional
+    public List<Bike> increasePrices(BigDecimal newPrice) {
+      List<Bike> bikePrices = bikeRepository.findAll();
+        for (Bike prices: bikePrices) {
+            prices.setPrice(newPrice);
+        }
+        return  bikePrices;
+    }
 }

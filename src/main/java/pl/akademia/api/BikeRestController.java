@@ -47,7 +47,7 @@ public class BikeRestController {
         return  new ResponseEntity<>(bike,HttpStatus.CREATED);
     }
 
-    @DeleteMapping("bikes/{id}")
+    @DeleteMapping("bikes/{id}/delete")
     public ResponseEntity<Bike> deleteBikeById(@PathVariable long id){
         bikeService.deleteBike(id);
 
@@ -73,6 +73,12 @@ public class BikeRestController {
     public ResponseEntity<Bike> updateParitucal(@RequestBody BikeBrandDTO brandUpdate, @PathVariable long id){
        bikeService.update(brandUpdate,id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("bikes/increase")
+    public ResponseEntity<List<Bike>> priceIncrease (@RequestParam BigDecimal  newPrice){
+        List<Bike> bikeList = bikeService.increasePrices(newPrice);
+         return new ResponseEntity<>(bikeList, HttpStatus.OK);
     }
 
 
