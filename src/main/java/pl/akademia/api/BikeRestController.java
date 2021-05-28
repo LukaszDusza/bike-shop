@@ -48,6 +48,12 @@ public class BikeRestController {
         return new ResponseEntity<>(HttpStatus.GONE);
         }
     }
+    @DeleteMapping("/bikes/{id}/delete")
+    public ResponseEntity<Bike> deleteBikeById2(@PathVariable Long id){
+        if (bikeService.deleteBikeById2(id) > 0) return new ResponseEntity<>(HttpStatus.OK);
+        else return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
+
     @PutMapping("/bikes/{id}")
     public ResponseEntity<Bike> updateBikeById(@PathVariable Long id, @RequestBody Bike bike) {
         try {

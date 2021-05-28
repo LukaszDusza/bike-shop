@@ -3,6 +3,7 @@ package pl.akademia.api;
 import org.springframework.stereotype.Service;
 import pl.akademia.api.model.Bike;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -31,6 +32,11 @@ public class BikeService {
         bikeRepository.delete(getBikeById(id));
     }
 
+    @Transactional
+    public int deleteBikeById2(Long id){
+        return bikeRepository.deleteBikeById(id);
+
+    }
     public Bike updateBikeById(Long id, Bike bike) throws BikeNotFoundException {
         Bike b = getBikeById(id);
         if(b == null) throw new BikeNotFoundException();
