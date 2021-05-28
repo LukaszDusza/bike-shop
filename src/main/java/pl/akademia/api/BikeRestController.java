@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.akademia.api.model.Bike;
+import pl.akademia.api.model.BikeBrandDTO;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -54,12 +55,24 @@ public class BikeRestController {
     }
 
     @PutMapping("bikes/{id}")
-    public ResponseEntity<Bike> updateBikeById(@PathVariable long id,
-                                               @RequestParam String type, @RequestParam String brand,
-                                               @RequestParam BigDecimal price, @RequestParam int stock){
-        bikeService.updateBike(id,type,brand,price,stock);
-        return  new ResponseEntity<>(HttpStatus.OK);
+   public ResponseEntity<Bike> updateBikeById(@PathVariable long id,
+                                              @RequestParam String type, @RequestParam String brand, @RequestParam BigDecimal price, @RequestParam int stock){
+       bikeService.updateBike(id,type,brand,price,stock);
+       return  new ResponseEntity<>(HttpStatus.OK);
 
+   }
+
+    @PutMapping("bikes")
+    public ResponseEntity<Bike> updateBike(@RequestParam long id,@RequestBody Bike bike){
+        bikeService.updateBike2(id,bike);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @PatchMapping("bikes/{id}")
+    public ResponseEntity<Bike> updateParitucal(@RequestBody BikeBrandDTO brandUpdate, @PathVariable long id){
+       bikeService.update(brandUpdate,id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

@@ -1,9 +1,9 @@
 package pl.akademia.api;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.akademia.api.model.Bike;
+import pl.akademia.api.model.BikeBrandDTO;
 
 
 import java.math.BigDecimal;
@@ -37,7 +37,7 @@ public class BikeService {
     public void deleteBike(long id) {
         boolean exists = bikeRepository.existsById(id);
         if(!exists){
-            throw new IllegalStateException("Bike with id "+id+ " does not exists");
+            throw new IllegalStateException("Bike with id "+id+ " does not exist");
         }
         bikeRepository.deleteById(id);
     }
@@ -53,4 +53,18 @@ public class BikeService {
     }
 
 
+    public void updateBike2(long id, Bike bike) {
+        boolean exists = bikeRepository.existsById(id);
+        if(!exists){
+            throw new IllegalStateException("Bike with id "+id+ " does not exist");
+        }
+        bikeRepository.save(bike);
+    }
+
+    @Transactional
+    public void update(BikeBrandDTO brandUpdate, long id) {
+        Bike bike = bikeRepository.findById(id).orElseThrow(()-> new IllegalStateException("Bike with id "+id+ " does not exist"));
+        bike.setBrand(brandUpdate.getBrand());
+
+    }
 }
