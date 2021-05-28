@@ -37,9 +37,10 @@ public class BikeRestController {
 
     @PostMapping("/bikes")
     public ResponseEntity<Bike> createBike(@RequestBody Bike bike){
-        return new ResponseEntity<>(bikeService.createBike(bike), HttpStatus.CREATED);
+        if (bike.getId() == null) return new ResponseEntity<>(bikeService.createOrUpdateBike(bike), HttpStatus.CREATED);
+        else return new ResponseEntity<>(bikeService.createOrUpdateBike(bike), HttpStatus.OK);
     }
-    @DeleteMapping("/bikes/{id}")
+/*    @DeleteMapping("/bikes/{id}")
     public ResponseEntity<Bike> deleteBikeById(@PathVariable Long id){
         Bike bike = bikeService.getBikeById(id);
         if (bike == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -47,12 +48,12 @@ public class BikeRestController {
         bikeService.deleteBikeById(id);
         return new ResponseEntity<>(HttpStatus.OK);
         }
-    }
-/*    @DeleteMapping("/bikes/{id}/delete")
-    public ResponseEntity<Bike> deleteBikeById2(@PathVariable Long id){
-        if (bikeService.deleteBikeById2(id) > 0) return new ResponseEntity<>(HttpStatus.OK);
-        else return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }*/
+    @DeleteMapping("/bikes/{id}/delete")
+    public ResponseEntity<Bike> deleteBikeById(@PathVariable Long id){
+        if (bikeService.deleteBikeById(id) > 0) return new ResponseEntity<>(HttpStatus.OK);
+        else return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
 
     @PutMapping("/bikes/{id}")
     public ResponseEntity<Bike> updateBikeById(@PathVariable Long id, @RequestBody Bike bike) {
@@ -71,7 +72,7 @@ public class BikeRestController {
         } catch (BikeNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.RESET_CONTENT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/bikes/updatePrice")

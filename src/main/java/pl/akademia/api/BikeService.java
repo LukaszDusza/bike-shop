@@ -24,19 +24,19 @@ public class BikeService {
         return bikeRepository.findById(id).orElse(null);
     }
 
-    public Bike createBike(Bike bike){
+    public Bike createOrUpdateBike(Bike bike){
         return bikeRepository.save(bike);
     }
 
-    public void deleteBikeById(Long id){
+/*    public void deleteBikeById(Long id){
         bikeRepository.delete(getBikeById(id));
-    }
+    }*/
 
-/*    @Transactional
-    public int deleteBikeById2(Long id){
+    @Transactional
+    public int deleteBikeById(Long id){
         return bikeRepository.deleteBikeById(id);
 
-    }*/
+    }
     public Bike updateBikeById(Long id, Bike bike) throws BikeNotFoundException {
         Bike b = getBikeById(id);
         if(b == null) throw new BikeNotFoundException();
