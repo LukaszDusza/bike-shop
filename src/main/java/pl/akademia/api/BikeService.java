@@ -32,11 +32,11 @@ public class BikeService {
         bikeRepository.delete(getBikeById(id));
     }
 
-    @Transactional
+/*    @Transactional
     public int deleteBikeById2(Long id){
         return bikeRepository.deleteBikeById(id);
 
-    }
+    }*/
     public Bike updateBikeById(Long id, Bike bike) throws BikeNotFoundException {
         Bike b = getBikeById(id);
         if(b == null) throw new BikeNotFoundException();
@@ -52,5 +52,9 @@ public class BikeService {
         if(bike == null) throw new BikeNotFoundException();
         bike.setPrice(price);
         return bikeRepository.save(bike);
+    }
+    @Transactional
+    public void updatePrice(BigDecimal value){
+         bikeRepository.updatePrice(value);
     }
 }

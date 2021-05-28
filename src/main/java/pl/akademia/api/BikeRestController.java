@@ -48,11 +48,11 @@ public class BikeRestController {
         return new ResponseEntity<>(HttpStatus.OK);
         }
     }
-    @DeleteMapping("/bikes/{id}/delete")
+/*    @DeleteMapping("/bikes/{id}/delete")
     public ResponseEntity<Bike> deleteBikeById2(@PathVariable Long id){
         if (bikeService.deleteBikeById2(id) > 0) return new ResponseEntity<>(HttpStatus.OK);
         else return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-    }
+    }*/
 
     @PutMapping("/bikes/{id}")
     public ResponseEntity<Bike> updateBikeById(@PathVariable Long id, @RequestBody Bike bike) {
@@ -72,5 +72,12 @@ public class BikeRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.RESET_CONTENT);
+    }
+
+    @PostMapping("/bikes/updatePrice")
+    public ResponseEntity<Bike> updatePrice(@RequestBody BigDecimal value){
+        bikeService.updatePrice(value);
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 }
