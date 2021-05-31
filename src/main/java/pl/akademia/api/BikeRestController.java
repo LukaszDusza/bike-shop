@@ -87,5 +87,8 @@ public class BikeRestController {
         bikeService.switchPrice(value);
     }
 
-
+    @GetMapping("bikes/{brand}/avaragePrice")
+    public ResponseEntity<Double> avaragePriceByBrand(@PathVariable String brand){
+        return new ResponseEntity<>(bikeService.avaragePriceByBrand(brand), HttpStatus.OK);
+    }
 }

@@ -6,6 +6,7 @@ import pl.akademia.api.model.Bike;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BikeService {
@@ -98,5 +99,15 @@ public class BikeService {
     public void switchPrice(BigDecimal value){ // nie jest zadowolony że ma tu voida, ale nie był w stanie nic wymyślić na razie
         bikeRepository.switchPrice(value);
     }
+
+    @Transactional
+    public double avaragePriceByBrand(String brand){
+        return bikeRepository.avaragePriceByBrand(brand);
+    }
+
+    //    - średniej cenie rowerów per marka
+//- ilosci wszystkich rowerów w magazynie
+
+
 
 }

@@ -9,6 +9,7 @@ import pl.akademia.api.model.Bike;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface BikeRepository extends JpaRepository<Bike, Long> {
@@ -29,6 +30,13 @@ public interface BikeRepository extends JpaRepository<Bike, Long> {
     @Modifying
     @Query(value = "update Bike b set b.price = b.price + :value")
     void switchPrice(BigDecimal value);
+
+//    - średniej cenie rowerów per marka
+//- ilosci wszystkich rowerów w magazynie
+
+    @Modifying
+    @Query(nativeQuery = true, value = "select avg(price) from bike where brand = ?1")
+    double avaragePriceByBrand(String brand);
 
 
 
