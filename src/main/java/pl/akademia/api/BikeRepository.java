@@ -17,8 +17,8 @@ public interface BikeRepository extends JpaRepository<Bike, Long> {
   @Query(value = "delete from Bike b where b.id = :id") // jpql
   int deleteBikeById(Long id);
 
+  //@Query(nativeQuery = true, value = "update bike set price = SUM(price + :value )")
   @Modifying
-  @Query(value = "update Bike b set b.price = b.price + :value")
-  // @Query(nativeQuery = true, value = "update bike set price = price + :value")
+  @Query(value = "update Bike b set b.price = SUM(b.price + :value)")
   void switchPrice(BigDecimal value);
 }
