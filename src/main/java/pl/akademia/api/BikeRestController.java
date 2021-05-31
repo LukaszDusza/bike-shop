@@ -87,8 +87,16 @@ public class BikeRestController {
         bikeService.switchPrice(value);
     }
 
-    @GetMapping("bikes/{brand}/avaragePrice")
-    public ResponseEntity<Double> avaragePriceByBrand(@PathVariable String brand){
-        return new ResponseEntity<>(bikeService.avaragePriceByBrand(brand), HttpStatus.OK);
+    @GetMapping ("bikes/{brand}/averagePriceByBrand/")
+    public ResponseEntity<Double> averagePriceByBrand(@PathVariable String brand){
+        if(bikeService.allBrands().contains(brand)) {
+            return new ResponseEntity<>(bikeService.averagePriceByBrand(brand), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping ("bikes/allBikesAmount")
+    public ResponseEntity<Integer> allBikesAmount(){
+        return new ResponseEntity<>(bikeService.allBikesAmount(), HttpStatus.OK);
     }
 }

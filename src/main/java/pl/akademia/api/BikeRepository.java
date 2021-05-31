@@ -34,10 +34,14 @@ public interface BikeRepository extends JpaRepository<Bike, Long> {
 //    - średniej cenie rowerów per marka
 //- ilosci wszystkich rowerów w magazynie
 
-    @Modifying
-    @Query(nativeQuery = true, value = "select avg(price) from bike where brand = ?1")
-    double avaragePriceByBrand(String brand);
 
+//    @Modifying -- koniecznie trzeba to wywalić!!
+//    @Query(nativeQuery = true, value = "select avg(price) from bike where brand = ?1")
+    @Query(value = "select avg(b.price) from Bike b where b.brand = ?1")
+    Double averagePriceByBrand(String brand);
+
+    @Query(nativeQuery = true, value = "select count(*) from bike")
+    int allBikesAmount();
 
 
 }

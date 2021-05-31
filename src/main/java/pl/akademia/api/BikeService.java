@@ -5,8 +5,7 @@ import pl.akademia.api.model.Bike;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class BikeService {
@@ -101,9 +100,24 @@ public class BikeService {
     }
 
     @Transactional
-    public double avaragePriceByBrand(String brand){
-        return bikeRepository.avaragePriceByBrand(brand);
+    public Double averagePriceByBrand(String brand){
+        return bikeRepository.averagePriceByBrand(brand);
     }
+
+    public Set<String> allBrands(){
+        Set<String> brands = new HashSet<>();
+        for(Bike b : bikeRepository.findAll()){
+            brands.add(b.getBrand());
+        }
+        return brands;
+    }
+
+    @Transactional
+    public int allBikesAmount(){
+        return bikeRepository.allBikesAmount();
+    }
+
+
 
     //    - średniej cenie rowerów per marka
 //- ilosci wszystkich rowerów w magazynie
