@@ -21,4 +21,10 @@ public interface BikeRepository extends JpaRepository<Bike, Long> {
   @Modifying
   @Query(value = "update Bike b set b.price = SUM(b.price + :value)")
   void switchPrice(BigDecimal value);
+
+  @Query(value = "select avg(b.price) from Bike b where b.brand = ?1")
+  Double averagePriceByBrand(String brand);
+
+  @Query(nativeQuery = true, value = "select count(*) from bike")
+  int allBikesAmount();
 }

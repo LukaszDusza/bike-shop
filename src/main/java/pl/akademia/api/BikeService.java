@@ -5,7 +5,9 @@ import pl.akademia.api.model.Bike;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class BikeService {
@@ -36,5 +38,23 @@ public class BikeService {
   @Transactional
   public void switchPrice(BigDecimal value) {
     bikeRepository.switchPrice(value);
+  }
+
+  @Transactional
+  public Double averagePriceByBrand(String brand){
+    return bikeRepository.averagePriceByBrand(brand);
+  }
+
+  public Set<String> allBrands(){
+    Set<String> brands = new HashSet<>();
+    for(Bike b : bikeRepository.findAll()){
+      brands.add(b.getBrand());
+    }
+    return brands;
+  }
+
+  @Transactional
+  public int allBikesAmount(){
+    return bikeRepository.allBikesAmount();
   }
 }
