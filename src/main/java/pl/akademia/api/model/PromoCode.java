@@ -39,6 +39,10 @@ public class PromoCode {
     @Column(name = "is_multiple_use")
     boolean isMultipleUse;
 
+    @Column(name = "multiple_use")
+    int multipleUse;
+
+
 
 
 
