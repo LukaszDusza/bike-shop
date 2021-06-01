@@ -28,11 +28,9 @@ public class PromoCodeService {
         this.promoCodeRepository = promoCodeRepository;
     }
 
-    public PromoCode createPromoCode(Order order){
-
+    public PromoCode createPromoCode(){
         PromoCode promoCode = new PromoCode();
         promoCode.setPromoCode(UUID.randomUUID());
-        promoCode.setOrderId(order.getId());
         promoCode.setGenerateDate(LocalDateTime.now());
         promoCode.setExpDate(promoCode.getGenerateDate().plusMonths(ThreadLocalRandom.current().nextInt(minMonthsExp, maxMonthsExp+1)));
         promoCode.setDiscount(new BigDecimal(ThreadLocalRandom.current().nextInt(minDiscount.intValue(), maxDiscount.intValue())));
@@ -45,9 +43,7 @@ public class PromoCodeService {
     }
 
     public List<Long> getOrderUsed(PromoCode promoCode){
-        List<Long> orders;
-        orders = promoCodeRepository.getOrderUsed(promoCode.getPromoCodeId());
-        return orders;
+        return promoCodeRepository.getOrderUsed(promoCode.getPromoCodeId());
     }
 
 
