@@ -2,7 +2,7 @@ package pl.akademia.api.model;
 
 public enum UserRole {
 
-    USER_ROLE("user"),
+    CLIENT_ROLE("client"),
     ADMIN_ROLE("admin");
 
     private String roleName;
