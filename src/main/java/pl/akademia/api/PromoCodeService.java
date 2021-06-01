@@ -1,9 +1,6 @@
 package pl.akademia.api;
 
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
-import pl.akademia.api.model.Client;
-import pl.akademia.api.model.Order;
 import pl.akademia.api.model.PromoCode;
 
 import java.math.BigDecimal;
@@ -42,9 +39,14 @@ public class PromoCodeService {
         return promoCodeRepository.save(promoCode);
     }
 
-    public List<Long> getOrderUsed(UUID promoCode){
-        return promoCodeRepository.getOrderUsed(promoCode);
+    public List<Long> getUsedOrders(UUID promoCode){
+        return promoCodeRepository.getUsedOrders(promoCode);
     }
+
+    public List<LocalDate> getUsedDates(UUID promoCode){
+        return promoCodeRepository.getUsedDates(promoCode);
+    }
+
 
 
 
