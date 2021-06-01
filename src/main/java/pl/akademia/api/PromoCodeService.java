@@ -47,6 +47,10 @@ public class PromoCodeService {
         return promoCodeRepository.getUsedDates(promoCode);
     }
 
+    public List<Long> getUsedClients(UUID promoCode){
+        return promoCodeRepository.getUsedClients(promoCode);
+    }
+
 
 
 

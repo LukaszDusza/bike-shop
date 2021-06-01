@@ -21,8 +21,11 @@ public class PromoCode {
     @Column(name = "promo_code", nullable = false)
     UUID promoCode;
 
-    @Column(name = "order_id", nullable = false)
+    @Column(name = "order_id")
     Long orderId;
+
+    @Column(name = "client_id")
+    Long clientId;
 
     @Column(name = "used_date")
     LocalDateTime usedDate;
