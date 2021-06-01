@@ -29,5 +29,4 @@ public class User {
 
     @Column(name = "active", nullable = false)
     private boolean active;
-
 }
