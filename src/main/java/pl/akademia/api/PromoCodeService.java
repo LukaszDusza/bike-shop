@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.ObjLongConsumer;
 
 
 @Service
@@ -49,6 +50,10 @@ public class PromoCodeService {
 
     public List<Long> getUsedClients(UUID promoCode){
         return promoCodeRepository.getUsedClients(promoCode);
+    }
+
+    public List<Object[]> getUsedPromoCode(UUID promoCode){
+        return getUsedPromoCode(promoCode);
     }
 
 
