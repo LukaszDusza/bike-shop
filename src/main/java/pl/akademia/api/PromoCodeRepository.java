@@ -6,10 +6,11 @@ import org.springframework.stereotype.Repository;
 import pl.akademia.api.model.PromoCode;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public interface PromoCodeRepository extends JpaRepository<PromoCode, Long> {
 
-@Query(value = "SELECT pc.orderId FROM PromoCode pc WHERE pc.promoCodeId =: promoCodeId")
-List<Long> getOrderUsed(Long promoCodeId);
+@Query(value = "SELECT pc.orderId FROM PromoCode pc WHERE pc.promoCode =: promoCodeName")
+List<Long> getOrderUsed(UUID promoCode);
 }

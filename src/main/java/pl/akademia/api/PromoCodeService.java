@@ -36,15 +36,16 @@ public class PromoCodeService {
         promoCode.setDiscount(new BigDecimal(ThreadLocalRandom.current().nextInt(minDiscount.intValue(), maxDiscount.intValue())));
         promoCode.setMultipleUse(ThreadLocalRandom.current().nextBoolean());
         if (promoCode.isMultipleUse()){
-          promoCode.setMultipleUse(ThreadLocalRandom.current().nextInt(2, maxMultipleUse));
+          promoCode.setUsePromoCodeCounter(ThreadLocalRandom.current().nextInt(2, maxMultipleUse));
         } else
-            promoCode.setMultipleUse(1);
+            promoCode.setUsePromoCodeCounter(1);
         return promoCodeRepository.save(promoCode);
     }
 
-    public List<Long> getOrderUsed(PromoCode promoCode){
-        return promoCodeRepository.getOrderUsed(promoCode.getPromoCodeId());
+    public List<Long> getOrderUsed(UUID promoCode){
+        return promoCodeRepository.getOrderUsed(promoCode);
     }
+
 
 
 

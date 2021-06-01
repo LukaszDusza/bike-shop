@@ -40,7 +40,7 @@ public class PromoCode {
     boolean isMultipleUse;
 
     @Column(name = "multiple_use", nullable = false)
-    int multipleUse;
+    int usePromoCodeCounter;
 
 
 
