@@ -1,15 +1,15 @@
 package pl.akademia.api;
 
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
+import pl.akademia.api.model.Client;
 import pl.akademia.api.model.Order;
 import pl.akademia.api.model.PromoCode;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Locale;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -32,7 +32,7 @@ public class PromoCodeService {
 
         PromoCode promoCode = new PromoCode();
         promoCode.setPromoCode(UUID.randomUUID());
-        promoCode.setOrder_id(order.getId());
+        promoCode.setOrderId(order.getId());
         promoCode.setGenerateDate(LocalDateTime.now());
         promoCode.setExpDate(promoCode.getGenerateDate().plusMonths(ThreadLocalRandom.current().nextInt(minMonthsExp, maxMonthsExp+1)));
         promoCode.setDiscount(new BigDecimal(ThreadLocalRandom.current().nextInt(minDiscount.intValue(), maxDiscount.intValue())));
@@ -43,6 +43,14 @@ public class PromoCodeService {
             promoCode.setMultipleUse(1);
         return promoCodeRepository.save(promoCode);
     }
+
+    public List<Long> getOrderUsed(PromoCode promoCode){
+        List<Long> orders;
+        orders = promoCodeRepository.getOrderUsed(promoCode.getPromoCodeId());
+        return orders;
+    }
+
+
 
 
 }

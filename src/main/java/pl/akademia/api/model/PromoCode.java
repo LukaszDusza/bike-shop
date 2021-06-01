@@ -16,13 +16,13 @@ public class PromoCode {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "promo_code_id")
-    Long id;
+    Long promoCodeId;
 
     @Column(name = "promo_code", nullable = false)
     UUID promoCode;
 
     @Column(name = "order_id", nullable = false)
-    Long order_id;
+    Long orderId;
 
     @Column(name = "used_date")
     LocalDateTime usedDate;
