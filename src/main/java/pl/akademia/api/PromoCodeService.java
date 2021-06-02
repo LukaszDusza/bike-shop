@@ -53,7 +53,7 @@ public class PromoCodeService {
     }
 
     public List<Object[]> getUsedPromoCode(UUID promoCode){
-        return getUsedPromoCode(promoCode);
+        return promoCodeRepository.getUsedPromoCode(promoCode);
     }
 
 
