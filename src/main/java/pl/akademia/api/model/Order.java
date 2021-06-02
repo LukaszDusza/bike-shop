@@ -3,7 +3,7 @@ package pl.akademia.api.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @Entity
@@ -37,15 +37,12 @@ public class Order {
     @JoinColumn (name = "basket_id", nullable = false)
     private Basket basket;
 
-//    @OneToOne
-//    @JoinColumn (name = "client_id",nullable = false)
-//    private Client client;
+    @OneToOne
+    @JoinColumn (name = "client_id",nullable = false)
+    private Client client;
 
-//    @OneToOne
-//    @JoinColumn(name = "promo_code_id")
-//    private PromoCode promoCode;
-
-
-
+    @OneToOne
+    @JoinColumn(name = "promo_code_id")
+    private PromoCode promoCode;
 
 }
