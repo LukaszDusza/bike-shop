@@ -40,20 +40,12 @@ public class BikeService {
     bikeRepository.switchPrice(value);
   }
 
-  @Transactional
-  public Double averagePriceByBrand(String brand){
+
+  public BigDecimal averagePriceByBrand(String brand){
     return bikeRepository.averagePriceByBrand(brand);
   }
 
-  public Set<String> allBrands(){
-    Set<String> brands = new HashSet<>();
-    for(Bike b : bikeRepository.findAll()){
-      brands.add(b.getBrand());
-    }
-    return brands;
-  }
 
-  @Transactional
   public int allBikesAmount(){
     return bikeRepository.allBikesAmount();
   }
