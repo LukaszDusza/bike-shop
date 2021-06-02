@@ -1,7 +1,6 @@
 package pl.akademia.api.model;
 
 import lombok.Data;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
