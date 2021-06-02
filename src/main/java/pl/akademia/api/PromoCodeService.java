@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.ObjLongConsumer;
 
 
 @Service
@@ -26,7 +25,21 @@ public class PromoCodeService {
         this.promoCodeRepository = promoCodeRepository;
     }
 
-    public PromoCode createPromoCode(){
+    public PromoCode createPromoCode(int activeDays, BigDecimal discount){
+        PromoCode promoCode = new PromoCode();
+        promoCode.setPromoCode(UUID.randomUUID());
+        promoCode.setGenerateDate(LocalDateTime.now());
+        promoCode.setExpDate(promoCode.getGenerateDate().plusDays(activeDays));
+        promoCode.setDiscount(discount);
+        promoCode.setMultipleUse(ThreadLocalRandom.current().nextBoolean());
+        if (promoCode.isMultipleUse()){
+            promoCode.setUsePromoCodeCounter(ThreadLocalRandom.current().nextInt(2, maxMultipleUse));
+        } else
+            promoCode.setUsePromoCodeCounter(1);
+        return promoCodeRepository.save(promoCode);
+    }
+
+    public PromoCode exampleCreatePromoCode(){
         PromoCode promoCode = new PromoCode();
         promoCode.setPromoCode(UUID.randomUUID());
         promoCode.setGenerateDate(LocalDateTime.now());
@@ -52,7 +65,7 @@ public class PromoCodeService {
         return promoCodeRepository.getUsedClients(promoCode);
     }
 
-    public List<Object[]> getUsedPromoCode(UUID promoCode){
+    public List<PromoCode> getUsedPromoCode(UUID promoCode){
         return promoCodeRepository.getUsedPromoCode(promoCode);
     }
 
