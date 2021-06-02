@@ -5,6 +5,7 @@ public enum PaymentMethod {
     BANK_TRANSFER ("Bank Transfer"),
     CREDIT_CARD ("Credit Card"),
     PAYPAL("PayPal"),
+    BLIK("blik"),
     COD ("Cash on Delivery");
 
     private String displayName;

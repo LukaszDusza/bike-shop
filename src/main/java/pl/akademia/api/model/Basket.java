@@ -21,7 +21,7 @@ public class Basket {
     private BigDecimal basketTotalPrice;
 
 
-    @OneToMany // (mappedBy = "basket")
+    @OneToMany  (mappedBy = "basket")
     private List<Bike> bikes = new ArrayList<>();
 
 
