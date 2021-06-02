@@ -2,6 +2,7 @@ package pl.akademia.api.model;
 
 import lombok.Data;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
