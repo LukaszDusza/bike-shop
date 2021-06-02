@@ -20,9 +20,6 @@ public class Basket {
     @Column(name = "total_price")
     private BigDecimal basketTotalPrice;
 
-
-    @OneToMany  (mappedBy = "basket")
+    @OneToMany
     private List<Bike> bikes = new ArrayList<>();
-
-
 }
