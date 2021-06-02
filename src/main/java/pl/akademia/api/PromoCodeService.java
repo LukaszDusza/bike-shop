@@ -4,8 +4,8 @@ import org.springframework.stereotype.Service;
 import pl.akademia.api.model.PromoCode;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -28,8 +28,8 @@ public class PromoCodeService {
     public PromoCode createPromoCode(int activeDays, BigDecimal discount){
         PromoCode promoCode = new PromoCode();
         promoCode.setPromoCode(UUID.randomUUID());
-        promoCode.setGenerateDate(LocalDateTime.now());
-        promoCode.setExpDate(promoCode.getGenerateDate().plusDays(activeDays));
+        promoCode.setGenerateDate(Date.valueOf(LocalDate.now()));
+        promoCode.setExpDate(Date.valueOf(promoCode.getGenerateDate().toLocalDate().plusDays(activeDays)));
         promoCode.setDiscount(discount);
         promoCode.setMultipleUse(ThreadLocalRandom.current().nextBoolean());
         if (promoCode.isMultipleUse()){
@@ -42,8 +42,8 @@ public class PromoCodeService {
     public PromoCode exampleCreatePromoCode(){
         PromoCode promoCode = new PromoCode();
         promoCode.setPromoCode(UUID.randomUUID());
-        promoCode.setGenerateDate(LocalDateTime.now());
-        promoCode.setExpDate(promoCode.getGenerateDate().plusMonths(ThreadLocalRandom.current().nextInt(minMonthsExp, maxMonthsExp+1)));
+        promoCode.setGenerateDate(Date.valueOf(LocalDate.now()));
+        promoCode.setExpDate(Date.valueOf(promoCode.getGenerateDate().toLocalDate().plusMonths(ThreadLocalRandom.current().nextInt(minMonthsExp, maxMonthsExp+1))));
         promoCode.setDiscount(new BigDecimal(ThreadLocalRandom.current().nextInt(minDiscount.intValue(), maxDiscount.intValue())));
         promoCode.setMultipleUse(ThreadLocalRandom.current().nextBoolean());
         if (promoCode.isMultipleUse()){

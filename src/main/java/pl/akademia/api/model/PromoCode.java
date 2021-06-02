@@ -5,7 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.UUID;
 
 @Data
@@ -28,13 +28,14 @@ public class PromoCode {
     Long clientId;
 
     @Column(name = "used_date")
-    LocalDateTime usedDate;
+    private
+    Date usedDate;
 
     @Column(name = "generate_date", nullable = false)
-    LocalDateTime generateDate;
+    Date generateDate;
 
     @Column(name = "exp_date", nullable = false)
-    LocalDateTime expDate;
+    Date expDate;
 
     @Column(name = "discount", nullable = false)
     BigDecimal discount;
