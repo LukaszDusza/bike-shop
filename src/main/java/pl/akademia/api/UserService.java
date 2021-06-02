@@ -1,7 +1,7 @@
 package pl.akademia.api;
 
 import org.springframework.stereotype.Service;
-import pl.akademia.api.model.User;
+import pl.akademia.api.model.UserApp;
 import pl.akademia.api.model.UserRole;
 
 import java.time.LocalDateTime;
@@ -18,22 +18,22 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User createUser(User user) {
+    public UserApp createUser(UserApp user) {
         if (!validateEmail(user)) throw new IllegalArgumentException("Invalid email address");
-        user.setUserRole(UserRole.USER_ROLE.getRoleName());
+        user.setUserRole(UserRole.CLIENT_ROLE.getRoleName());
         user.setRegistrationDate(LocalDateTime.now());
         user.setActive(true);
         return userRepository.save(user);
     }
 
-    public boolean validateEmail(User user) {
+    public boolean validateEmail(UserApp user) {
         String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(user.getLogin());
         return matcher.matches();
     }
 
-    public List<User> getAllUsers() {
+    public List<UserApp> getAllUsers() {
         return userRepository.findAll();
     }
 }

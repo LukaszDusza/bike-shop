@@ -3,9 +3,8 @@ package pl.akademia.api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.akademia.api.model.User;
+import pl.akademia.api.model.UserApp;
 
-import javax.persistence.GeneratedValue;
 import java.util.List;
 
 @RestController
@@ -19,13 +18,13 @@ public class UserRestController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<UserApp> createUser(@RequestBody UserApp user) {
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.OK);
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
+    public ResponseEntity<List<UserApp>> getAllUsers() {
+        List<UserApp> users = userService.getAllUsers();
         if (users.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
