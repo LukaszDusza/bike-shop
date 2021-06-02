@@ -4,7 +4,7 @@ import lombok.Data;
 
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.sql.Date;
 
 
 @Data
@@ -29,14 +29,8 @@ public class Client {
     private String phoneNumber;
 
     @Column(name = "registration_Date", nullable = false)
-    private LocalDate registrationDate;
+    private Date registrationDate;
 
    @OneToOne
    private Address address;
-
-
 }
-
-
-
-
