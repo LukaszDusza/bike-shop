@@ -4,14 +4,13 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-
     @Data
     @Entity
     @Table(name="address")
     public class Address {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        //@Column(name = "id_address", nullable = false)
+        @Column(name = "id", nullable = false)
         private Long id;
 
         @Column(name = "postal_code", nullable = false, length = 5)
