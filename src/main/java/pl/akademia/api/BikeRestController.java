@@ -72,8 +72,8 @@ public class BikeRestController {
   }
 
   @GetMapping("/bikes/stock")
-  public ResponseEntity<Bike> allBikesAmount(){
-    return new ResponseEntity(bikeService.allBikesAmount(), HttpStatus.OK);
+  public ResponseEntity<Integer> allBikesAmount(){
+    return new ResponseEntity<>(bikeService.allBikesAmount(), HttpStatus.OK);
   }
 
 }
