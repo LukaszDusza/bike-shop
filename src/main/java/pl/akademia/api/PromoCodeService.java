@@ -19,7 +19,7 @@ public class PromoCodeService {
     private  final int maxMultipleUse = 20;
 
 
-    public final PromoCodeRepository promoCodeRepository;
+    private final PromoCodeRepository promoCodeRepository;
 
     public PromoCodeService(PromoCodeRepository promoCodeRepository) {
         this.promoCodeRepository = promoCodeRepository;
@@ -69,9 +69,23 @@ public class PromoCodeService {
         return promoCodeRepository.getUsedPromoCode(promoCode);
     }
 
+    public PromoCode getPromoCode(UUID promoCode){
+        return promoCodeRepository.getPromoCodeByCode(promoCode);
+    }
+
+    public PromoCode usePromoCode(UUID promoCode){
+        PromoCode pC = getPromoCode(promoCode);
+        if (pC == null) throw new NullPointerException("Wrong or Used Promo Code");
+        pC.setUsePromoCodeCounter(pC.getUsePromoCodeCounter()-1);
+        if (pC.getUsePromoCodeCounter() == 0) pC.setUsedDate(Date.valueOf(LocalDate.now()));
+        return promoCodeRepository.save(pC);
+    }
+
+    }
 
 
 
 
 
-}
+
+

@@ -24,5 +24,7 @@ List<Long> getUsedOrders(UUID promoCode);
     @Query(value = "SELECT pc.clientId, pc.orderId, pc.usedDate FROM PromoCode pc WHERE pc.promoCode =: promoCode ")
     List<PromoCode> getUsedPromoCode(UUID promoCode);
 
+    @Query(value = "SELECT pc FROM PromoCode pc WHERE pc.promoCode =: promoCode AND pc.usePromoCodeCounter > 0")
+    PromoCode getPromoCodeByCode(UUID promoCode);
 }
 
