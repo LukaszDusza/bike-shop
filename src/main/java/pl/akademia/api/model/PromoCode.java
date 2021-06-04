@@ -16,35 +16,34 @@ public class PromoCode {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "promo_code_id")
-    Long promoCodeId;
+    private Long promoCodeId;
 
     @Column(name = "promo_code", nullable = false)
-    UUID promoCode;
+    private UUID promoCode;
 
     @Column(name = "order_id")
-    Long orderId;
+    private Long orderId;
 
     @Column(name = "client_id")
-    Long clientId;
+    private Long clientId;
 
     @Column(name = "used_date")
-    private
-    Date usedDate;
+    private Date usedDate;
 
     @Column(name = "generate_date", nullable = false)
-    Date generateDate;
+    private Date generateDate;
 
     @Column(name = "exp_date", nullable = false)
-    Date expDate;
+    private Date expDate;
 
     @Column(name = "discount", nullable = false)
-    BigDecimal discount;
+    private BigDecimal discount;
 
     @Column(name = "is_multiple_use", nullable = false)
-    boolean isMultipleUse;
+    private boolean isMultipleUse;
 
     @Column(name = "multiple_use", nullable = false)
-    int usePromoCodeCounter;
+    private int usePromoCodeCounter;
 
 
 
