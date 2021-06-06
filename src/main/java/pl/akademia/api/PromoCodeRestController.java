@@ -53,6 +53,16 @@ public class PromoCodeRestController {
         else return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
+    @PatchMapping("/promocode/{id}/update")
+    public ResponseEntity<PromoCode> updateExpDatePromoCodeById(@PathVariable Long id, @RequestBody int activeDays){
+        try{
+            promoCodeService.updateExpDatePromoCodeById(id, activeDays);
+        }catch(WrongPromoCodeException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(promoCodeService.updateExpDatePromoCodeById(id, activeDays), HttpStatus.OK);
+    }
+
 
 }
 

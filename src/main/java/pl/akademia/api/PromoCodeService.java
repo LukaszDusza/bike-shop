@@ -95,6 +95,14 @@ public class PromoCodeService {
         return promoCodeRepository.deletePromoCodeById(id);
     }
 
+    public PromoCode updateExpDatePromoCodeById(Long id, int activeDays) throws WrongPromoCodeException {
+        PromoCode promoCode = getPromoCodeById(id);
+        if (promoCode == null) throw new WrongPromoCodeException("Wrong Promo Code");
+
+        promoCode.setExpDate(Date.valueOf(promoCode.getGenerateDate().toLocalDate().plusDays(activeDays)));
+        return promoCodeRepository.save(promoCode);
+    }
+
 
 
     }
