@@ -69,17 +69,27 @@ public class PromoCodeService {
         return promoCodeRepository.getUsedPromoCode(promoCode);
     }
 
-    public PromoCode getPromoCode(UUID promoCode){
+    public PromoCode getPromoCodeByCode(UUID promoCode){
         return promoCodeRepository.getPromoCodeByCode(promoCode);
     }
 
     public PromoCode usePromoCode(UUID promoCode){
-        PromoCode pC = getPromoCode(promoCode);
+        PromoCode pC = getPromoCodeByCode(promoCode);
         if (pC == null) throw new NullPointerException("Wrong or Used Promo Code");
         pC.setUsePromoCodeCounter(pC.getUsePromoCodeCounter()-1);
         if (pC.getUsePromoCodeCounter() == 0) pC.setUsedDate(Date.valueOf(LocalDate.now()));
         return promoCodeRepository.save(pC);
     }
+
+    public PromoCode getPromoCodeById(Long id){
+        return promoCodeRepository.findById(id).orElse(null);
+    }
+
+    public List<PromoCode> getAllPromoCode(){
+        return promoCodeRepository.findAll();
+    }
+
+
 
     }
 

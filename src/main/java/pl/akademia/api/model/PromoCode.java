@@ -2,6 +2,7 @@ package pl.akademia.api.model;
 
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -18,7 +19,7 @@ public class PromoCode {
     @Column(name = "promo_code_id")
     private Long promoCodeId;
 
-    @Column(name = "promo_code", nullable = false)
+    @Column(name = "promo_code", nullable = false, columnDefinition = "Binary(16)")
     private UUID promoCode;
 
     @Column(name = "order_id")

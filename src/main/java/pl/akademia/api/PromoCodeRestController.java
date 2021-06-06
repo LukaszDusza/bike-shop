@@ -3,11 +3,11 @@ package pl.akademia.api;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.akademia.api.model.PromoCode;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -20,9 +20,34 @@ public class PromoCodeRestController {
         this.promoCodeService = promoCodeService;
     }
 
-    @PostMapping("/promocode/{code}/use")
+    @PostMapping("/promocodes")
+    public ResponseEntity<PromoCode> createPromoCode(@RequestBody int activeDays, BigDecimal discount){
+        return new ResponseEntity<>(promoCodeService.createPromoCode(activeDays, discount), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/promocodes")
+    public ResponseEntity<List<PromoCode>> getAllPromoCodes(){
+        List<PromoCode> promoCodes = promoCodeService.getAllPromoCode();
+        if (promoCodes.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(promoCodes, HttpStatus.OK);
+    }
+
+    @GetMapping("/promocodes/{promocode}")
+    public ResponseEntity<PromoCode> getPromoCodeByCode(@PathVariable UUID promocode){
+        if (promoCodeService.getPromoCodeByCode(promocode) == null) return new ResponseEntity<>(promoCodeService.getPromoCodeByCode(promocode), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(promoCodeService.getPromoCodeByCode(promocode), HttpStatus.OK);
+    }
+    @PostMapping("/promocodes/{code}/use")
     public ResponseEntity<PromoCode> usePromoCode(UUID promoCode){
         return new ResponseEntity<>(promoCodeService.usePromoCode(promoCode), HttpStatus.OK);
     }
+
+    @GetMapping("/promocode/{id}")
+    public ResponseEntity<PromoCode> getPromoCodeById(@PathVariable Long id){
+        if (promoCodeService.getPromoCodeById(id) == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(promoCodeService.getPromoCodeById(id), HttpStatus.OK);
+    }
+
+
 }
 
