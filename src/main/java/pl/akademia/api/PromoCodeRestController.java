@@ -37,9 +37,14 @@ public class PromoCodeRestController {
         if (promoCodeService.getPromoCodeByCode(promocode) == null) return new ResponseEntity<>(promoCodeService.getPromoCodeByCode(promocode), HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(promoCodeService.getPromoCodeByCode(promocode), HttpStatus.OK);
     }
-    @PostMapping("/promocodes/{code}/use")
-    public ResponseEntity<PromoCode> usePromoCode(UUID promoCode){
-        return new ResponseEntity<>(promoCodeService.usePromoCode(promoCode), HttpStatus.OK);
+    @PostMapping("/promocodes/{promocode}/use")
+    public ResponseEntity<PromoCode> usePromoCode(@PathVariable UUID promocode){
+        try{
+            promoCodeService.usePromoCode(promocode);
+        } catch(WrongPromoCodeException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(promoCodeService.usePromoCode(promocode), HttpStatus.OK);
     }
 
     @GetMapping("/promocode/{id}")
