@@ -47,6 +47,11 @@ public class PromoCodeRestController {
         if (promoCodeService.getPromoCodeById(id) == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(promoCodeService.getPromoCodeById(id), HttpStatus.OK);
     }
+    @DeleteMapping("/promocode/{id}/delete")
+    public ResponseEntity<PromoCode> deletePromoCodeById(@PathVariable Long id){
+        if (promoCodeService.deletePromoCodesById(id) > 0) return new ResponseEntity<>(HttpStatus.OK);
+        else return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
 
 
 }

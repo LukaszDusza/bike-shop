@@ -3,6 +3,7 @@ package pl.akademia.api;
 import org.springframework.stereotype.Service;
 import pl.akademia.api.model.PromoCode;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -87,6 +88,11 @@ public class PromoCodeService {
 
     public List<PromoCode> getAllPromoCode(){
         return promoCodeRepository.findAll();
+    }
+
+    @Transactional
+    public int deletePromoCodesById(Long id){
+        return promoCodeRepository.deletePromoCodeById(id);
     }
 
 
