@@ -25,7 +25,7 @@ public class SalesRaportController {
 
 
     @GetMapping("/salesRaport")
-    public ResponseEntity<List<Order>> salesRaportDetails(@RequestParam String dateFrom, String dateTo){
+    public ResponseEntity<List<Order>> salesRaportDetails(@RequestParam String dateFrom,@RequestParam String dateTo){
         Date dateF = Date.valueOf(dateFrom);
         Date dateT = Date.valueOf(dateTo);
         List<Order> orderList = salesRaportService.getSalesRaport(dateF,dateT);
@@ -33,7 +33,7 @@ public class SalesRaportController {
     }
 
     @GetMapping("/takings")
-    public ResponseEntity<BigDecimal> takingsInPeriod(@RequestParam String dateFrom, String dateTo){
+    public ResponseEntity<BigDecimal> takingsInPeriod(@RequestParam String dateFrom, @RequestParam String dateTo){
         Date dateF = Date.valueOf(dateFrom);
         Date dateT = Date.valueOf(dateTo);
         BigDecimal totalTalkings = salesRaportService.getTalkingsSum(dateF,dateT);
