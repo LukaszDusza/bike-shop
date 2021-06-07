@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.akademia.api.model.PromotionCode;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -46,10 +45,10 @@ public class PromotionCodeRestController {
     public ResponseEntity<PromotionCode> usePromotionCode(@PathVariable UUID promocode){
         try{
             promotionCodeService.usePromotionCode(promocode);
-        } catch(WrongPromoCodeException e){
+        } catch(WrongPromotionCodeException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(promotionCodeService.usePromotionCode(promocode), HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/promocode/{id}")
@@ -67,7 +66,7 @@ public class PromotionCodeRestController {
     public ResponseEntity<PromotionCode> updateExpDatePromotionCodeById(@PathVariable Long id, @RequestBody int activeDays){
         try{
             promotionCodeService.updateExpDatePromotionCodeById(id, activeDays);
-        }catch(WrongPromoCodeException e){
+        }catch(WrongPromotionCodeException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(promotionCodeService.updateExpDatePromotionCodeById(id, activeDays), HttpStatus.OK);
