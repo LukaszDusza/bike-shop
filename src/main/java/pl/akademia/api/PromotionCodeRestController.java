@@ -25,9 +25,13 @@ public class PromotionCodeRestController {
         return new ResponseEntity<>(promotionCodeService.createPromotionCode(activeDays, discount), HttpStatus.CREATED);
     }
 
-    @GetMapping("/promocodes")
-    public ResponseEntity<List<PromotionCode>> getAllPromotionCodes(){
-        List<PromotionCode> promotionCodes = promotionCodeService.getAllPromotionCode();
+    @GetMapping("/promocodes/{a}")
+    public ResponseEntity<List<PromotionCode>> getAllPromotionCodes(@RequestParam(required = false) String a){
+        List<PromotionCode> promotionCodes;
+        if ("active".equals(a)) promotionCodes = promotionCodeService.getActivePromotionCodeByCode();
+        else if ("inactive".equals(a)) promotionCodes = promotionCodeService.getInactivePromotionCodeByCode();
+        else if (a == null) promotionCodes = promotionCodeService.getAllPromotionCode();
+        else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         if (promotionCodes.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(promotionCodes, HttpStatus.OK);
     }
@@ -37,6 +41,7 @@ public class PromotionCodeRestController {
         if (promotionCodeService.getPromotionCodeByCode(promocode) == null) return new ResponseEntity<>(promotionCodeService.getPromotionCodeByCode(promocode), HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(promotionCodeService.getPromotionCodeByCode(promocode), HttpStatus.OK);
     }
+
     @PostMapping("/promocodes/{promocode}/use")
     public ResponseEntity<PromotionCode> usePromotionCode(@PathVariable UUID promocode){
         try{

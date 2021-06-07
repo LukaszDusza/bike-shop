@@ -76,6 +76,14 @@ public class PromotionCodeService {
         return promotionCodeRepository.getPromotionCodeByCode(promotionCode);
     }
 
+    public List<PromotionCode> getActivePromotionCodeByCode(){
+        return promotionCodeRepository.getActivePromotionCodeByCode();
+    }
+
+    public List<PromotionCode> getInactivePromotionCodeByCode(){
+        return promotionCodeRepository.getInactivePromotionCodeByCode();
+    }
+
     public PromotionCode usePromotionCode(UUID promotionCode) throws WrongPromoCodeException {
         PromotionCode pC = getPromotionCodeByCode(promotionCode);
         if (pC == null) throw new WrongPromoCodeException("Wrong or Used Promo Code");
