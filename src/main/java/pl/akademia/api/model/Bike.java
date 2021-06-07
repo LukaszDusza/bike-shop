@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "bike")
 public class Bike {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")

@@ -9,7 +9,7 @@ import java.sql.Date;
 
 @Data
 @Entity
-@Table(name="client")
+@Table(name = "client")
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +28,11 @@ public class Client {
     @Column(name = "phone_Number", length = 9)
     private String phoneNumber;
 
-    @Column(name = "registration_Date", nullable = false)
+    @Column(name = "registration_Date")
     private Date registrationDate;
 
-   @OneToOne
+   @OneToOne(cascade = CascadeType.REMOVE)
+   @JoinColumn(name = "address_id")
    private Address address;
+
 }

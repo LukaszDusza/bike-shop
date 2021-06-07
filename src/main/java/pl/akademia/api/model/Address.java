@@ -24,6 +24,5 @@ import javax.persistence.*;
 
         @OneToOne(mappedBy = "address")
         private Client client;
-
-    }
+}
 
