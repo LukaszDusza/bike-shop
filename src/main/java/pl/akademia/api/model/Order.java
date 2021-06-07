@@ -43,6 +43,6 @@ public class Order {
 
     @OneToOne
     @JoinColumn(name = "promo_code_id")
-    private PromoCode promoCode;
+    private PromotionCode promotionCode;
 
 }

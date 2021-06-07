@@ -12,15 +12,15 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "promo_code")
-public class PromoCode {
+public class PromotionCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "promo_code_id")
-    private Long promoCodeId;
+    @Column(name = "promotion_code_id")
+    private Long promotionCodeId;
 
-    @Column(name = "promo_code", nullable = false, columnDefinition = "Binary(16)")
-    private UUID promoCode;
+    @Column(name = "promotion_code", nullable = false, columnDefinition = "Binary(16)")
+    private UUID promotionCode;
 
     @Column(name = "order_id")
     private Long orderId;
@@ -44,7 +44,7 @@ public class PromoCode {
     private boolean isMultipleUse;
 
     @Column(name = "multiple_use", nullable = false)
-    private int usePromoCodeCounter;
+    private int usePromotionCodeCounter;
 
 
 
