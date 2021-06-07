@@ -15,5 +15,5 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
     List<Order> getOrderByDate(Date date);
 
     @Query(value = "select o from Order o where size(o.basket.bikes)>= :min and size(o.basket.bikes)<= :max")
-    List<Order> getOrderBySize(int min, int max);
+    List<Order> getOrderBySize(Integer min, Integer max);
 }
