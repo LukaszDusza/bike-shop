@@ -20,5 +20,5 @@ public class OrderService {
 
     public List<Order> getOrderByDate(Date date){return orderRepository.getOrderByDate(date);}
 
-    public List<Order> getOrderBySize(int min, int max){return orderRepository.getOrderBySize(min, max);}
+    public List<Order> getOrderBySize(Integer min, Integer max){return orderRepository.getOrderBySize(min, max);}
 }

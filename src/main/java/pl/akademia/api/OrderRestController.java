@@ -2,10 +2,7 @@ package pl.akademia.api;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.akademia.api.model.Order;
 
 import java.sql.Date;
@@ -22,12 +19,21 @@ public class OrderRestController {
     }
 
     @GetMapping("/orders")
-    public ResponseEntity<List<Order>> getAllOrders(){
-        List<Order> orders=orderService.getAllOrders();
-        if (orders.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<List<Order>> getOrders(@RequestParam(required=false) Integer min, @RequestParam(required = false) Integer max){
+        List<Order> orders;
+        if(min==null && max==null){
+            orders=orderService.getAllOrders();
+            if (orders.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+        }else{
+            orders= orderService.getOrderBySize(min,max);
+            if (orders.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         }
         return new ResponseEntity<>(orders,HttpStatus.OK);
+
     }
 
     @GetMapping("/orders/{id}")
@@ -48,12 +54,4 @@ public class OrderRestController {
         return new ResponseEntity<>(orders,HttpStatus.OK);
     }
 
-    @GetMapping("/orders/size/{min}-{max}")
-    public ResponseEntity<List<Order>> getOrderBySize(@PathVariable int min,@PathVariable int max){
-        List<Order> orders= orderService.getOrderBySize(min,max);
-        if (orders.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(orders,HttpStatus.OK);
-    }
 }
