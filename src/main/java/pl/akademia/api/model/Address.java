@@ -1,5 +1,7 @@
 package pl.akademia.api.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -21,9 +23,4 @@ import javax.persistence.*;
 
         @Column(name = "house_number", nullable = false, length = 10)
         private String houseNumber;
-
-        @OneToOne(mappedBy = "address")
-        private Client client;
-
     }
-
