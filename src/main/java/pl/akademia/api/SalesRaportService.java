@@ -19,12 +19,16 @@ public class SalesRaportService {
         this.salesRaportRepository = salesRaportRepository;
     }
 
-    public List<Order> getSalesRaport(Date dateF, Date dateT) {
+    public List<Order> getSalesRaport(String dateFrom, String dateTo) {
+        Date dateF = Date.valueOf(dateFrom);
+        Date dateT = Date.valueOf(dateTo);
        List<Order> orderList =  salesRaportRepository.findOrdersByDate(dateF,dateT);
         return  orderList;
     }
 
-    public BigDecimal getTalkingsSum(Date dateF, Date dateT) {
+    public BigDecimal getTalkingsSum(String dateFrom, String dateTo) {
+        Date dateF = Date.valueOf(dateFrom);
+        Date dateT = Date.valueOf(dateTo);
         BigDecimal totalTalkings = salesRaportRepository.takingsInPeriod(dateF,dateT);
         return totalTalkings;
     }
