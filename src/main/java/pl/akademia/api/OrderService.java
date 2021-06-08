@@ -2,6 +2,7 @@ package pl.akademia.api;
 
 import org.springframework.stereotype.Service;
 import pl.akademia.api.model.Order;
+import pl.akademia.api.model.PromoCode;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -41,6 +42,7 @@ public class OrderService {
         clientRepository.save(order.getClient());
         order.setOrderDate(Date.valueOf(LocalDate.now()));
         UUID input = UUID.fromString(promoCode);
+
 
         return orderRepository.save(order);
     }

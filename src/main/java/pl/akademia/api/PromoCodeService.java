@@ -69,7 +69,9 @@ public class PromoCodeService {
         return promoCodeRepository.getUsedPromoCode(promoCode);
     }
 
-
+    public long getPromoCode(UUID promoCode){
+        return promoCodeRepository.getPromoCode(promoCode);
+    }
 
 
 
