@@ -32,6 +32,7 @@ public class OrderService {
         addressRepository.save(order.getClient().getAddress());
         order.getClient().setRegistrationDate(Date.valueOf(LocalDate.now()));
         clientRepository.save(order.getClient());
+        order.setBasket(basketService.getBasketById(basketId));
         order.setOrderDate(Date.valueOf(LocalDate.now()));
         return orderRepository.save(order);
     }
@@ -40,10 +41,9 @@ public class OrderService {
         addressRepository.save(order.getClient().getAddress());
         order.getClient().setRegistrationDate(Date.valueOf(LocalDate.now()));
         clientRepository.save(order.getClient());
+        order.setBasket(basketService.getBasketById(basketId));
         order.setOrderDate(Date.valueOf(LocalDate.now()));
-        UUID input = UUID.fromString(promoCode);
-
-
+        order.setPromoCode(promoCodeService.usePromotionCode(promoCode));
         return orderRepository.save(order);
     }
 }
