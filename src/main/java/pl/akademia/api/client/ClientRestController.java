@@ -52,4 +52,14 @@ public class ClientRestController {
     public Client createClient(@RequestBody Client client) {
         return clientService.createClient(client);
     }
+
+    @GetMapping("/clients/dto")
+    public ResponseEntity<List<ClientDTO>> getClientsDTO() {
+        List<ClientDTO> clients = clientService.getAllClientsDTO();
+        if (clients.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(clients,HttpStatus.OK);
+    }
+
 }
