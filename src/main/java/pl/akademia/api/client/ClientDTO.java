@@ -14,10 +14,10 @@ public class ClientDTO {
     private String name;
 
     @JsonProperty(value="last_name")
-    private  String lastName;
+    private String lastName;
 
     @JsonProperty(value="phone_number")
-    private  String phoneNumber;
+    private String phoneNumber;
 
     @JsonProperty(value="registration_date")
     private String registrationDate;
@@ -25,16 +25,6 @@ public class ClientDTO {
     @JsonProperty(value="email")
     private String email;
 
-    @JsonProperty(value="street")
-    private String street;
-
-    @JsonProperty(value="house_number")
-    private String houseNumber;
-
-    @JsonProperty(value="postal_code")
-    private String postalCode;
-
-    @JsonProperty(value="city")
-    private String city;
-
+    @JsonProperty(value="address")
+    private String address;
 }

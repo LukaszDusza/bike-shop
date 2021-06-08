@@ -3,6 +3,7 @@ package pl.akademia.api.client;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientService {
@@ -19,6 +20,13 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
+    public List<ClientDTO> getAllClientsDTO() {
+        return clientRepository
+            .findAll()
+            .stream()
+            .map(clientMapper::from)
+            .collect(Collectors.toList());
+    }
 
     public Client getClientById(Long id) {
         return clientRepository.findById(id).orElse(null);
