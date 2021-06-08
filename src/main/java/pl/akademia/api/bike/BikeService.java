@@ -1,13 +1,10 @@
-package pl.akademia.api;
+package pl.akademia.api.bike;
 
 import org.springframework.stereotype.Service;
-import pl.akademia.api.model.Bike;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class BikeService {

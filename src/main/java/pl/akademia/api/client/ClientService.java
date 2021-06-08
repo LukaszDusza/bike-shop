@@ -1,7 +1,6 @@
 package pl.akademia.api.client;
 
 import org.springframework.stereotype.Service;
-import pl.akademia.api.model.Client;
 
 import java.util.List;
 

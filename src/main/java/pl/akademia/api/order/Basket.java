@@ -1,6 +1,7 @@
-package pl.akademia.api.model;
+package pl.akademia.api.order;
 
 import lombok.Data;
+import pl.akademia.api.bike.Bike;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

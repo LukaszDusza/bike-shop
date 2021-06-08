@@ -1,8 +1,6 @@
-package pl.akademia.api;
+package pl.akademia.api.user;
 
 import org.springframework.stereotype.Service;
-import pl.akademia.api.model.UserApp;
-import pl.akademia.api.model.UserRole;
 
 import java.time.LocalDateTime;
 import java.util.List;
