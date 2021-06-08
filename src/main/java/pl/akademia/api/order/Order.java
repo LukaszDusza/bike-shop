@@ -1,6 +1,8 @@
-package pl.akademia.api.model;
+package pl.akademia.api.order;
 
 import lombok.Data;
+import pl.akademia.api.client.Client;
+import pl.akademia.api.promotion.PromoCode;
 
 import javax.persistence.*;
 import java.sql.Date;

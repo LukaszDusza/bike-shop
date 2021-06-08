@@ -1,11 +1,10 @@
-package pl.akademia.api.model;
+package pl.akademia.api.client;
 
 import lombok.Data;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;

@@ -1,4 +1,4 @@
-package pl.akademia.api;
+package pl.akademia.api.utils;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package pl.akademia.api.model;
+package pl.akademia.api.client;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;

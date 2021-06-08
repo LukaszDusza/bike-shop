@@ -1,7 +1,6 @@
-package pl.akademia.api;
+package pl.akademia.api.promotion;
 
 import org.springframework.stereotype.Service;
-import pl.akademia.api.model.PromoCode;
 
 import java.math.BigDecimal;
 import java.sql.Date;

@@ -1,4 +1,4 @@
-package pl.akademia.api.model;
+package pl.akademia.api.promotion;
 
 
 import lombok.Data;
