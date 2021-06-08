@@ -23,5 +23,8 @@ List<Long> getUsedOrders(UUID promoCode);
     @Query(value = "SELECT pc.clientId, pc.orderId, pc.usedDate FROM PromoCode pc WHERE pc.promoCode =: promoCode ")
     List<PromoCode> getUsedPromoCode(UUID promoCode);
 
+    @Query(nativeQuery = true, value = "select * from promo_code where promo_code = unhex(:promoCode)")
+    Long getPromoCode(UUID promoCode);
+
 }
 
