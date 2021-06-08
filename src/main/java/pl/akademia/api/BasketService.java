@@ -1,7 +1,7 @@
 package pl.akademia.api;
 
 import org.springframework.stereotype.Service;
-import pl.akademia.api.model.Basket;
+import pl.akademia.api.order.Basket;
 
 @Service
 public class BasketService {

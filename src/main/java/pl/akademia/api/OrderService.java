@@ -1,8 +1,10 @@
 package pl.akademia.api;
 
 import org.springframework.stereotype.Service;
-import pl.akademia.api.model.Order;
-import pl.akademia.api.model.PromoCode;
+import pl.akademia.api.client.ClientRepository;
+import pl.akademia.api.order.Order;
+import pl.akademia.api.promotion.PromoCode;
+import pl.akademia.api.promotion.PromoCodeService;
 
 import java.sql.Date;
 import java.time.LocalDate;
