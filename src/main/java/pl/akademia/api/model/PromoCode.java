@@ -19,7 +19,7 @@ public class PromoCode {
     Long promoCodeId;
 
     @Column(name = "promo_code", nullable = false)
-    UUID promoCode;
+    String promoCode;
 
     @Column(name = "order_id")
     Long orderId;
