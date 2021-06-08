@@ -8,13 +8,17 @@ import java.util.List;
 public class ClientService {
 
     private final ClientRepository clientRepository;
+    private final ClientMapper clientMapper;
 
-    public ClientService(ClientRepository clientRepository) {
+    public ClientService(ClientRepository clientRepository, ClientMapper clientMapper) {
         this.clientRepository = clientRepository;
+        this.clientMapper = clientMapper;
     }
+
     public List<Client> getAllClients() {
         return clientRepository.findAll();
     }
+
 
     public Client getClientById(Long id) {
         return clientRepository.findById(id).orElse(null);
