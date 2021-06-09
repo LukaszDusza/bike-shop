@@ -1,5 +1,8 @@
 package pl.akademia.api.bike;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 
@@ -31,5 +34,7 @@ public class Bike {
 
   @Column(name = "stock", nullable = false)
   private int stock;
+
+  private String image;
 
 }
