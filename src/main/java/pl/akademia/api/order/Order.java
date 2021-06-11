@@ -2,7 +2,7 @@ package pl.akademia.api.order;
 
 import lombok.Data;
 import pl.akademia.api.client.Client;
-import pl.akademia.api.promotion.PromoCode;
+import pl.akademia.api.promotion.PromotionCode;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -45,6 +45,6 @@ public class Order {
 
     @OneToOne
     @JoinColumn(name = "promo_code_id")
-    private PromoCode promoCode;
+    private PromotionCode promoCode;
 
 }

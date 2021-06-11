@@ -1,8 +1,11 @@
 package pl.akademia.api.bike;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import pl.akademia.api.file.FileService;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -10,9 +13,11 @@ import java.util.List;
 public class BikeService {
 
   private final BikeRepository bikeRepository;
+  private final FileService fileService;
 
-  public BikeService(BikeRepository bikeRepository) {
+  public BikeService(BikeRepository bikeRepository, FileService fileService) {
     this.bikeRepository = bikeRepository;
+    this.fileService = fileService;
   }
 
   public List<Bike> getAllBikes() {
@@ -37,13 +42,13 @@ public class BikeService {
     bikeRepository.switchPrice(value);
   }
 
-
   public BigDecimal averagePriceByBrand(String brand){
     return bikeRepository.averagePriceByBrand(brand);
   }
 
-
   public int allBikesAmount(){
     return bikeRepository.allBikesAmount();
   }
+
+
 }

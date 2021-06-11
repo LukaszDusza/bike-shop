@@ -1,7 +1,7 @@
 package pl.akademia.api.promotion;
 
-
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -11,43 +11,43 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "promo_code")
-public class PromoCode {
+public class PromotionCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "promo_code_id")
-    Long promoCodeId;
+    @Column(name = "promotion_code_id")
+    private Long promotionCodeId;
 
-    @Column(name = "promo_code", nullable = false)
-    UUID promoCode;
+    @Column(name = "promotion_code", nullable = false, columnDefinition = "Binary(16)")
+    private UUID promotionCode;
 
     @Column(name = "order_id")
-    Long orderId;
+    private Long orderId;
 
     @Column(name = "client_id")
-    Long clientId;
+    private Long clientId;
 
     @Column(name = "used_date")
-    private
-    Date usedDate;
+    private Date usedDate;
 
     @Column(name = "generate_date", nullable = false)
-    Date generateDate;
+    private Date generateDate;
 
     @Column(name = "exp_date", nullable = false)
-    Date expDate;
+    private Date expDate;
 
     @Column(name = "discount", nullable = false)
-    BigDecimal discount;
+    private BigDecimal discount;
 
     @Column(name = "is_multiple_use", nullable = false)
-    boolean isMultipleUse;
+    private boolean isMultipleUse;
 
     @Column(name = "multiple_use", nullable = false)
-    int usePromoCodeCounter;
+    private int usePromotionCodeCounter;
 
 
 
 
 
 }
+
