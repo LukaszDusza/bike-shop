@@ -1,8 +1,7 @@
-package pl.akademia.api;
+package pl.akademia.api.report;
 
 import org.springframework.stereotype.Service;
-import pl.akademia.api.model.Order;
-
+import pl.akademia.api.order.Order;
 
 import java.math.BigDecimal;
 import java.sql.Date;
