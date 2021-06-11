@@ -5,7 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import pl.akademia.api.model.Order;
+import pl.akademia.api.order.Order;
+
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -25,7 +26,7 @@ public class SalesRaportController {
 
 
     @GetMapping("/raport")
-    public ResponseEntity<List<Order>> salesRaportDetails(@RequestParam String dateFrom,@RequestParam String dateTo){
+    public ResponseEntity<List<Order>> salesRaportDetails(@RequestParam String dateFrom, @RequestParam String dateTo){
         List<Order> orderList = salesRaportService.getSalesRaport(dateFrom,dateTo);
         return new ResponseEntity<>(orderList,HttpStatus.OK);
     }
