@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
 
 @Service
 public class FileService {
@@ -30,10 +31,16 @@ public class FileService {
     }
   }
 
-  public String uploadFile(MultipartFile file) throws IOException {
+  public LocalFile uploadFile(MultipartFile file) throws IOException {
     Path path = Paths.get(directory + file.getOriginalFilename());
     Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-    return file.getName();
+    return LocalFile
+        .builder()
+        .name(file.getOriginalFilename())
+        .downloadUri(getWebLink(file.getOriginalFilename()))
+        .fileType(Files.probeContentType(path))
+        .creationTime(Files.readAttributes(path, BasicFileAttributes.class).creationTime().toString())
+        .build();
   }
 
   public String getWebLink(String fileName) {
@@ -41,6 +48,7 @@ public class FileService {
         .fromCurrentContextPath()
         .path("/api/v1/files/")
         .path(fileName)
+        .path("/image")
         .toUriString();
   }
 

@@ -34,7 +34,4 @@ public class Bike {
 
   @Column(name = "stock", nullable = false)
   private int stock;
-
-  private String image;
-
 }

@@ -29,9 +29,7 @@ public class BikeService {
   }
 
   public Bike createOrUpdateBike(Bike bike) {
-    Bike newBike = bikeRepository.save(bike);
-    newBike.setImage(fileService.getWebLink(newBike.getId().toString()));
-    return bikeRepository.save(newBike);
+    return bikeRepository.save(bike);
   }
 
   @Transactional
