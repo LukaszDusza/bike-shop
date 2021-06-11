@@ -1,7 +1,6 @@
-package pl.akademia.api;
+package pl.akademia.api.order;
 
 import org.springframework.stereotype.Service;
-import pl.akademia.api.model.Order;
 
 import java.sql.Date;
 import java.util.List;
