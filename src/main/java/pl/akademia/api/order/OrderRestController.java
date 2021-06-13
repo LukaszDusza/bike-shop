@@ -48,7 +48,7 @@ public class OrderRestController {
     public ResponseEntity<List<Order>> getOrderByDate(@PathVariable Date date){
         List<Order> orders= orderService.getOrderByDate(date);
         if (orders.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(orders,HttpStatus.OK);
     }
