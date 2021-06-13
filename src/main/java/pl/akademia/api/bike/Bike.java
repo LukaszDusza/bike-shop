@@ -34,4 +34,7 @@ public class Bike {
 
   @Column(name = "stock", nullable = false)
   private int stock;
+
+  @Column(name = "serial_number", nullable = false)
+  private String serialNumber;
 }

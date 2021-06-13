@@ -1,11 +1,9 @@
 package pl.akademia.api.bike;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import pl.akademia.api.file.FileService;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -50,5 +48,5 @@ public class BikeService {
     return bikeRepository.allBikesAmount();
   }
 
-
+  public Bike getBikeBySerialNumber(String serialNumber){return bikeRepository.getBikeBySerialNumber(serialNumber);}
 }
