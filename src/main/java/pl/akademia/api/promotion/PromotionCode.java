@@ -1,8 +1,6 @@
 package pl.akademia.api.promotion;
 
 import lombok.Data;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -10,22 +8,19 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "promo_code")
+@Table(name = "promotion_code")
 public class PromotionCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "promotion_code_id")
-    private Long promotionCodeId;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "promotion_code", nullable = false, columnDefinition = "Binary(16)")
     private UUID promotionCode;
 
     @Column(name = "order_id")
     private Long orderId;
-
-    @Column(name = "client_id")
-    private Long clientId;
 
     @Column(name = "used_date")
     private Date usedDate;

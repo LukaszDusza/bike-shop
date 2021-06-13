@@ -63,10 +63,6 @@ public class PromotionCodeService {
         return promotionCodeRepository.getUsedDates(promotionCode);
     }
 
-    public List<Long> getUsedClients(UUID promotionCode) {
-        return promotionCodeRepository.getUsedClients(promotionCode);
-    }
-
     public List<PromotionCode> getUsedPromotionCode(UUID promotionCode) {
         return promotionCodeRepository.getUsedPromotionCode(promotionCode);
     }
@@ -104,13 +100,7 @@ public class PromotionCodeService {
         return promotionCodeRepository.deletePromotionCodeById(id);
     }
 
-    public PromotionCode updateExpDatePromotionCodeById(Long id, int activeDays) throws WrongPromotionCodeException {
-        PromotionCode promotionCode = getPromotionCodeById(id);
-        if (promotionCode == null) throw new WrongPromotionCodeException("Wrong Promo Code");
 
-        promotionCode.setExpDate(Date.valueOf(promotionCode.getGenerateDate().toLocalDate().plusDays(activeDays)));
-        return promotionCodeRepository.save(promotionCode);
-    }
 
 
 }

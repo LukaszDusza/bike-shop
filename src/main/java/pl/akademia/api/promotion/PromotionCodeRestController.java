@@ -20,7 +20,7 @@ public class PromotionCodeRestController {
     }
 
     @PostMapping("/promocodes")
-    public ResponseEntity<PromotionCode> createPromotionCode(@RequestBody int activeDays, BigDecimal discount){
+    public ResponseEntity<PromotionCode> createPromotionCode(@RequestParam int activeDays, BigDecimal discount){
         return new ResponseEntity<>(promotionCodeService.createPromotionCode(activeDays, discount), HttpStatus.CREATED);
     }
 
@@ -62,15 +62,6 @@ public class PromotionCodeRestController {
         else return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
-    @PatchMapping("/promocode/{id}/update")
-    public ResponseEntity<PromotionCode> updateExpDatePromotionCodeById(@PathVariable Long id, @RequestBody int activeDays){
-        try{
-            promotionCodeService.updateExpDatePromotionCodeById(id, activeDays);
-        }catch(WrongPromotionCodeException e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(promotionCodeService.updateExpDatePromotionCodeById(id, activeDays), HttpStatus.OK);
-    }
 
 
 }
