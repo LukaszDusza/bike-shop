@@ -4,7 +4,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.UUID;
+
 
 @Data
 @Entity
@@ -16,8 +16,8 @@ public class PromotionCode {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "promotion_code", nullable = false, columnDefinition = "Binary(16)")
-    private UUID promotionCode;
+    @Column(name = "promotion_code", nullable = false)
+    private String promotionCode;
 
     @Column(name = "order_id")
     private Long orderId;
