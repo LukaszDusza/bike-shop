@@ -16,11 +16,11 @@ public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "total_price")
     private BigDecimal basketTotalPrice;
 
-    @OneToMany
+    @ManyToMany
     private List<Bike> bikes = new ArrayList<>();
 }
