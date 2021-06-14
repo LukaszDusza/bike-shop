@@ -20,6 +20,11 @@ public class BasketService {
         return basketRepository.save(basket);
     }
 
+    public Basket createOrUpdateDiscountedBasket(Basket basket, BigDecimal discount) {
+        basket.setBasketTotalPrice(getBasketTotalPrice(basket.getBikes()).subtract(discount));
+        return basketRepository.save(basket);
+    }
+
     public BigDecimal getBasketTotalPrice(List<Bike> bikes) {
         BigDecimal totalPrice = BigDecimal.ZERO;
         if (bikes.isEmpty()) {
