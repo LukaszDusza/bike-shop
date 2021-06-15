@@ -31,5 +31,4 @@ public class OrderService {
     public List<Order> getOrderByClientId(Long id) {
         return orderRepository.getOrderByClientId(id);
         }
-
 }
