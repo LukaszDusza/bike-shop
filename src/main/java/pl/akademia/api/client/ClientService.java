@@ -35,7 +35,6 @@ public class ClientService {
     }
 
     public Client createOrUpdateClient(Client client){
-        client.setRegistrationDate(new java.sql.Date(new Date().getTime()));
         return clientRepository.save(client);
     }
 
@@ -43,9 +42,6 @@ public class ClientService {
         return clientRepository.getClientByEmail(email);
     }
 
-    public boolean checkUniqueEmail(Client client){
-        return !(clientRepository.getAllEmails().contains(client.getEmail()));
-    }
 
     @Transactional
     public int deleteClientById(Long id){
