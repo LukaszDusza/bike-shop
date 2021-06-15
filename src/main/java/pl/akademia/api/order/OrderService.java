@@ -32,7 +32,4 @@ public class OrderService {
         return orderRepository.getOrderByClientId(id);
         }
 
-        public List<Order> getOrderByBikeBrand(String brand) {
-        return orderRepository.getOrderByBikeBrand(brand);
-        }
 }
