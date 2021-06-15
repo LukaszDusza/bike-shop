@@ -2,6 +2,7 @@ package pl.akademia.api.client;
 
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,6 +45,12 @@ public class ClientService {
 
     public boolean checkUniqueEmail(Client client){
         return !(clientRepository.getAllEmails().contains(client.getEmail()));
+    }
+
+    @Transactional
+    public int deleteClientById(Long id){
+        return clientRepository.deleteClientById(id);
+
     }
 
 }
