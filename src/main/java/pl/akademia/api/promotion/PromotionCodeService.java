@@ -29,7 +29,7 @@ public class PromotionCodeService {
 
     public PromotionCode createPromotionCode(int activeDays, BigDecimal discount) {
         PromotionCode promotionCode = new PromotionCode();
-        promotionCode.setPromotionCode(UUID.randomUUID());
+        promotionCode.setPromotionCode(UUID.randomUUID().toString());
         promotionCode.setGenerateDate(Date.valueOf(LocalDate.now()));
         promotionCode.setExpDate(Date.valueOf(promotionCode.getGenerateDate().toLocalDate().plusDays(activeDays)));
         promotionCode.setDiscount(discount);
@@ -55,23 +55,19 @@ public class PromotionCodeService {
         return promotionCodeRepository.save(promotionCode);
     }*/
 
-    public List<Long> getUsedOrders(UUID promotionCode) {
+    public List<Long> getUsedOrders(String promotionCode) {
         return promotionCodeRepository.getUsedOrders(promotionCode);
     }
 
-    public List<LocalDate> getUsedDates(UUID promotionCode) {
+    public List<LocalDate> getUsedDates(String promotionCode) {
         return promotionCodeRepository.getUsedDates(promotionCode);
     }
 
-    public List<Long> getUsedClients(UUID promotionCode) {
-        return promotionCodeRepository.getUsedClients(promotionCode);
-    }
-
-    public List<PromotionCode> getUsedPromotionCode(UUID promotionCode) {
+    public List<PromotionCode> getUsedPromotionCode(String promotionCode) {
         return promotionCodeRepository.getUsedPromotionCode(promotionCode);
     }
 
-    public PromotionCode getPromotionCodeByCode(UUID promotionCode) {
+    public PromotionCode getPromotionCodeByCode(String promotionCode) {
         return promotionCodeRepository.getPromotionCodeByCode(promotionCode);
     }
 
@@ -83,9 +79,9 @@ public class PromotionCodeService {
         return promotionCodeRepository.getInactivePromotionCodeByCode();
     }
 
-    public PromotionCode usePromotionCode(UUID promotionCode) throws WrongPromotionCodeException {
+    public PromotionCode usePromotionCode(String promotionCode) throws WrongPromotionCodeException {
         PromotionCode pC = getPromotionCodeByCode(promotionCode);
-        if (pC == null) throw new WrongPromotionCodeException("Wrong or Used Promo Code");
+        if (pC.getUsedDate() != null) throw new WrongPromotionCodeException("Wrong or Used Promo Code");
         pC.setUsePromotionCodeCounter(pC.getUsePromotionCodeCounter() - 1);
         if (pC.getUsePromotionCodeCounter() == 0) pC.setUsedDate(Date.valueOf(LocalDate.now()));
         return promotionCodeRepository.save(pC);
@@ -104,13 +100,7 @@ public class PromotionCodeService {
         return promotionCodeRepository.deletePromotionCodeById(id);
     }
 
-    public PromotionCode updateExpDatePromotionCodeById(Long id, int activeDays) throws WrongPromotionCodeException {
-        PromotionCode promotionCode = getPromotionCodeById(id);
-        if (promotionCode == null) throw new WrongPromotionCodeException("Wrong Promo Code");
 
-        promotionCode.setExpDate(Date.valueOf(promotionCode.getGenerateDate().toLocalDate().plusDays(activeDays)));
-        return promotionCodeRepository.save(promotionCode);
-    }
 
 
 }

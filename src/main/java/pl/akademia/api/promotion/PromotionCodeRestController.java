@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -20,7 +19,7 @@ public class PromotionCodeRestController {
     }
 
     @PostMapping("/promocodes")
-    public ResponseEntity<PromotionCode> createPromotionCode(@RequestBody int activeDays, BigDecimal discount){
+    public ResponseEntity<PromotionCode> createPromotionCode(@RequestParam int activeDays, BigDecimal discount){
         return new ResponseEntity<>(promotionCodeService.createPromotionCode(activeDays, discount), HttpStatus.CREATED);
     }
 
@@ -36,13 +35,13 @@ public class PromotionCodeRestController {
     }
 
     @GetMapping("/promocodes/{promocode}")
-    public ResponseEntity<PromotionCode> getPromotionCodeByCode(@PathVariable UUID promocode){
+    public ResponseEntity<PromotionCode> getPromotionCodeByCode(@RequestParam String promocode){
         if (promotionCodeService.getPromotionCodeByCode(promocode) == null) return new ResponseEntity<>(promotionCodeService.getPromotionCodeByCode(promocode), HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(promotionCodeService.getPromotionCodeByCode(promocode), HttpStatus.OK);
     }
 
     @PostMapping("/promocodes/{promocode}/use")
-    public ResponseEntity<PromotionCode> usePromotionCode(@PathVariable UUID promocode){
+    public ResponseEntity<PromotionCode> usePromotionCode(@PathVariable String promocode){
         try{
             promotionCodeService.usePromotionCode(promocode);
         } catch(WrongPromotionCodeException e){
@@ -62,15 +61,6 @@ public class PromotionCodeRestController {
         else return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
-    @PatchMapping("/promocode/{id}/update")
-    public ResponseEntity<PromotionCode> updateExpDatePromotionCodeById(@PathVariable Long id, @RequestBody int activeDays){
-        try{
-            promotionCodeService.updateExpDatePromotionCodeById(id, activeDays);
-        }catch(WrongPromotionCodeException e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(promotionCodeService.updateExpDatePromotionCodeById(id, activeDays), HttpStatus.OK);
-    }
 
 
 }
