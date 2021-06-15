@@ -55,4 +55,22 @@ public class OrderRestController {
         return new ResponseEntity<>(orders,HttpStatus.OK);
     }
 
+    @GetMapping("/orders/client/{id}")
+    public ResponseEntity<List<Order>> getOrderByClientId(@PathVariable Long id){
+        List<Order> orders= orderService.getOrderByClientId(id);
+        if (orders.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(orders,HttpStatus.OK);
+    }
+
+    @GetMapping("/orders/bikes/{brand}")
+    public ResponseEntity<List<Order>> getOrderByBikeBrand(@PathVariable String brand){
+        List<Order> orders= orderService.getOrderByBikeBrand(brand);
+        if (orders.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(orders,HttpStatus.OK);
+    }
+
 }
