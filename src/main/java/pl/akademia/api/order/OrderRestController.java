@@ -3,6 +3,8 @@ package pl.akademia.api.order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.akademia.api.client.Client;
+import pl.akademia.api.client.ClientService;
 
 import java.sql.Date;
 import java.util.List;
