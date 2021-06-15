@@ -26,6 +26,7 @@ public class ClientRestController {
     @GetMapping("/clients")
     public ResponseEntity<?> getClients(@RequestParam(required = false) String email) {
         if(email != null) {
+            System.out.println("email " + email);
             Client client = clientService.getClientByEmail(email);
             if (client == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
