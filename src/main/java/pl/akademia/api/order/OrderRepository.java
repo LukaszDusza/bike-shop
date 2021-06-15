@@ -20,7 +20,8 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
     @Query(nativeQuery =true, value= "SELECT order_date, order_status, informations, delivery_metod, paymment_method FROM orders, client  where orders.client_id=client.id_client and orders.client_id= :id")
     List<Order>  getOrderByClientId(Long id);
 
-    @Query(nativeQuery =true, value= "SELECT order_date, order_status, informations, delivery_metod, paymment_method FROM orders, bike  where orders.basket_id=bike.id and bike.brand= :brand")
+    @Query(nativeQuery =true, value= "SELECT order_date, order_status, informations, delivery_metod," +
+            " paymment_method FROM orders, bike  where orders.basket_id=bike.id and bike.brand= :brand")
     List<Order>  getOrderByBikeBrand(String brand);
 
 
