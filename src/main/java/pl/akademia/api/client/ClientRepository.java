@@ -13,9 +13,6 @@ public interface ClientRepository extends JpaRepository<Client,Long> {
   @Query(value = "select c from Client c where c.email = :email")
   Client getClientByEmail(String email);
 
-  @Query(nativeQuery = true, value = "select email from client")
-  List<String> getAllEmails();
-
   @Modifying
   @Query(value = "delete from Client c where c.id = :id")
   int deleteClientById(Long id);

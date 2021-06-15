@@ -46,13 +46,11 @@ public class ClientRestController {
     @PostMapping("/clients")
     public ResponseEntity<Client> createOrUpdateClient(@RequestBody Client client){
         if(client.getId() == null){
-            if(clientService.checkUniqueEmail(client)){
                 return new ResponseEntity<>(clientService.createOrUpdateClient(client), HttpStatus.CREATED);
             }
-            return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
+            return new ResponseEntity<>(clientService.createOrUpdateClient(client), HttpStatus.OK);
         }
-        return new ResponseEntity<>(clientService.createOrUpdateClient(client), HttpStatus.OK);
-    }
+
 
     @GetMapping("/clients/dto")
     public ResponseEntity<List<ClientDTO>> getClientsDTO() {
