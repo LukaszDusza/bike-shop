@@ -1,7 +1,6 @@
 package pl.akademia.api.report;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.akademia.api.order.Order;
@@ -14,12 +13,10 @@ import java.util.List;
 public interface SalesRaportRepository extends JpaRepository<Order, Long> {
 
 
-  @Query(value = "select o.client.email,o.orderDate from Order o where o.orderDate between :dateF and :dateT")
-  @Modifying
+  @Query(nativeQuery = true,value = "select * from orders where order_date between :dateF and :dateT")
   List<Order> findOrdersByDate(Date dateF, Date dateT);
 
   @Query(value = "select sum(o.basket.basketTotalPrice) from Order o where o.orderDate between :dateF and :dateT")
-  @Modifying
   BigDecimal takingsInPeriod(Date dateF, Date dateT);
 
 

@@ -5,6 +5,7 @@ import pl.akademia.api.order.Order;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -18,17 +19,14 @@ public class SalesRaportService {
         this.salesRaportRepository = salesRaportRepository;
     }
 
-    public List<Order> getSalesRaport(String dateFrom, String dateTo) {
-        Date dateF = Date.valueOf(dateFrom);
-        Date dateT = Date.valueOf(dateTo);
-       List<Order> orderList =  salesRaportRepository.findOrdersByDate(dateF,dateT);
-        return  orderList;
+
+    public List<Order> getSalesRaport(Date dateFrom, Date dateTo) {
+
+        return salesRaportRepository.findOrdersByDate(dateFrom,dateTo);
     }
 
-    public BigDecimal getTalkingsSum(String dateFrom, String dateTo) {
-        Date dateF = Date.valueOf(dateFrom);
-        Date dateT = Date.valueOf(dateTo);
-        BigDecimal totalTalkings = salesRaportRepository.takingsInPeriod(dateF,dateT);
+    public BigDecimal getTalkingsSum(Date dateFrom, Date dateTo) {
+        BigDecimal totalTalkings = salesRaportRepository.takingsInPeriod(dateFrom,dateTo);
         return totalTalkings;
     }
 }
