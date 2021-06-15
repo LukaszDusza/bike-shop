@@ -39,7 +39,7 @@ public class ClientRestController {
         return new ResponseEntity<>(clients,HttpStatus.OK);
     }
 
-    @GetMapping("/clients/{id}")
+    @GetMapping("/clients/{id}/id")
     public ResponseEntity<Client> getClientById(@PathVariable Long id) {
         Client client = clientService.getClientById(id);
         if (client == null) {
@@ -49,8 +49,14 @@ public class ClientRestController {
     }
 
     @PostMapping("/clients")
-    public Client createClient(@RequestBody Client client) {
-        return clientService.createClient(client);
+    public ResponseEntity<Client> createOrUpdateClient(@RequestBody Client client){
+        if(client.getId() == null){
+            if(clientService.checkUniqueEmail(client)){
+                return new ResponseEntity<>(clientService.createOrUpdateClient(client), HttpStatus.CREATED);
+            }
+            return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
+        }
+        return new ResponseEntity<>(clientService.createOrUpdateClient(client), HttpStatus.OK);
     }
 
     @GetMapping("/clients/dto")
