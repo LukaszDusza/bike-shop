@@ -2,14 +2,7 @@ package pl.akademia.api.bike;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -25,7 +18,14 @@ public class BikeRestController {
   }
 
   @GetMapping("/bikes")
-  public ResponseEntity<List<Bike>> getAllBikes() {
+  public ResponseEntity<?> getBikes(@RequestParam(required = false, value = "serial") String serialNumber) {
+    if(serialNumber != null) {
+      Bike bike = bikeService.getBikeBySerialNumber(serialNumber);
+      if (bike == null) {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
+      return new ResponseEntity<>(bike, HttpStatus.OK);
+    }
     List<Bike> bikes = bikeService.getAllBikes();
     if (bikes.isEmpty()) {
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);

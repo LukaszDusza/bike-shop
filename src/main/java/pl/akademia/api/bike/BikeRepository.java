@@ -25,4 +25,7 @@ public interface BikeRepository extends JpaRepository<Bike, Long> {
 
   @Query(nativeQuery = true, value = "select SUM(stock) from bike")
   int allBikesAmount();
+
+  @Query(value = "select b from Bike b where b.serialNumber=:serialNumber")
+  Bike getBikeBySerialNumber(String serialNumber);
 }
