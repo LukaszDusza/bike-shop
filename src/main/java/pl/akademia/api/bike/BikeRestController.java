@@ -3,6 +3,7 @@ package pl.akademia.api.bike;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.akademia.api.exceptions.BikeNotFoundException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,17 +19,17 @@ public class BikeRestController {
   }
 
   @GetMapping("/bikes")
-  public ResponseEntity<?> getBikes(@RequestParam(required = false, value = "serial") String serialNumber) {
+  public ResponseEntity<?> getBikes(@RequestParam(required = false, value = "serial") String serialNumber)  {
     if(serialNumber != null) {
       Bike bike = bikeService.getBikeBySerialNumber(serialNumber);
       if (bike == null) {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        throw new BikeNotFoundException("Bike not found");
       }
       return new ResponseEntity<>(bike, HttpStatus.OK);
     }
     List<Bike> bikes = bikeService.getAllBikes();
     if (bikes.isEmpty()) {
-      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+      throw new BikeNotFoundException("BikeShop has no any bikes!");
     }
     return new ResponseEntity<>(bikes, HttpStatus.OK);
   }
