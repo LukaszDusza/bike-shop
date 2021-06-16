@@ -25,4 +25,40 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         .build();
     return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
   }
+
+  @ExceptionHandler(value = {FileTypeNotFoundException.class})
+  protected ResponseEntity<Object> handleTypeNotFoundException(RuntimeException e, WebRequest request){
+    ExceptionBody body = ExceptionBody
+            .builder()
+            .message(e.getMessage())
+            .status(404)
+            .path(request.getDescription(true))
+            .timestamp(new Date().toString())
+            .build();
+    return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+  }
+
+  @ExceptionHandler(value = {ResourceNotFoundException.class})
+  protected ResponseEntity<Object> handleResourceNotFoundException(RuntimeException e, WebRequest request){
+    ExceptionBody body = ExceptionBody
+            .builder()
+            .message(e.getMessage())
+            .status(404)
+            .path(request.getDescription(true))
+            .timestamp(new Date().toString())
+            .build();
+    return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+  }
+
+  @ExceptionHandler(value = {FileNotAcceptedException.class})
+  protected ResponseEntity<Object> handleNotAcceptedException(RuntimeException e, WebRequest request){
+    ExceptionBody body = ExceptionBody
+            .builder()
+            .message(e.getMessage())
+            .status(406)
+            .path(request.getDescription(true))
+            .timestamp(new Date().toString())
+            .build();
+    return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, request);
+  }
 }

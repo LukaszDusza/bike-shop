@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import pl.akademia.api.exceptions.FileNotAcceptedException;
+import pl.akademia.api.exceptions.FileTypeNotFoundException;
+import pl.akademia.api.exceptions.ResourceNotFoundException;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,8 +34,14 @@ public class FileController {
   @GetMapping("/files/{file}/image")
   public ResponseEntity<?> getFile(@PathVariable String file) throws IOException {
     Resource resource = fileService.getFile(file);
+    if (!resource.exists()){
+      throw new ResourceNotFoundException("The resource is unknown");
+    }
     File targetFile = new File(resource.getFile().getAbsolutePath());
     String contentType = Files.probeContentType(Paths.get(resource.getURI()));
+    if(contentType==null){
+      throw new FileTypeNotFoundException("The file type is unknown");
+    }
     return ResponseEntity
         .ok()
         .contentType(MediaType.parseMediaType(contentType))
@@ -49,7 +58,7 @@ public class FileController {
     if (file.getSize() < 10_000_000L) {
       return new ResponseEntity<>(fileService.uploadFile(file), HttpStatus.CREATED);
     } else {
-      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+      throw new FileNotAcceptedException("The file is too big");
     }
   }
 
