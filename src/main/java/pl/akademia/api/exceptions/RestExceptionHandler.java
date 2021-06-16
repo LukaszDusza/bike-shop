@@ -25,4 +25,17 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         .build();
     return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
   }
+
+  @ExceptionHandler (value = {PromoCodeNotFoundException.class})
+  protected ResponseEntity<Object> handlePromoCodeNotFoundException (RuntimeException e, WebRequest request){
+      String param = request.getParameter("promo code");
+      ExceptionBody body = ExceptionBody
+              .builder()
+              .message(e.getMessage()+" promo code "+ param)
+              .status(404)
+              .path(request.getDescription(true))
+              .timestamp(new Date().toString())
+              .build();
+      return handleExceptionInternal(e,body,new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+  }
 }
