@@ -47,9 +47,9 @@ public class OrderService {
         if (clientService.getClientByEmail(order.getClient().getEmail()) != null) {
             order.getClient().setId(clientService.getClientByEmail(order.getClient().getEmail()).getId());
             order.getClient().getAddress().setId(clientService.getClientByEmail(order.getClient().getEmail()).getAddress().getId());
-            return clientService.createClient(order.getClient());
+            return clientService.createOrUpdateClient(order.getClient());
         }
-        return clientService.createClient(order.getClient());
+        return clientService.createOrUpdateClient(order.getClient());
     }
 
     public List<Order> getAllOrders() {
