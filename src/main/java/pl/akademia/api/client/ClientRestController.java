@@ -45,12 +45,11 @@ public class ClientRestController {
 
     @PostMapping("/clients")
     public ResponseEntity<Client> createOrUpdateClient(@RequestBody Client client){
-        if(client.getId() == null){
-                return new ResponseEntity<>(clientService.createOrUpdateClient(client), HttpStatus.CREATED);
-            }
-            return new ResponseEntity<>(clientService.createOrUpdateClient(client), HttpStatus.OK);
+        if(client.getId() == null) {
+            return new ResponseEntity<>(clientService.createOrUpdateClient(client), HttpStatus.CREATED);
         }
-
+        return new ResponseEntity<>(clientService.createOrUpdateClient(client), HttpStatus.OK);
+    }
 
     @GetMapping("/clients/dto")
     public ResponseEntity<List<ClientDTO>> getClientsDTO() {
