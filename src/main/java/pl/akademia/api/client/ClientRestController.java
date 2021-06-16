@@ -26,7 +26,6 @@ public class ClientRestController {
     @GetMapping("/clients")
     public ResponseEntity<?> getClients(@RequestParam(required = false) String email) {
         if(email != null) {
-            System.out.println("email " + email);
             Client client = clientService.getClientByEmail(email);
             if (client == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -50,8 +49,11 @@ public class ClientRestController {
     }
 
     @PostMapping("/clients")
-    public Client createClient(@RequestBody Client client) {
-        return clientService.createClient(client);
+    public ResponseEntity<Client> createOrUpdateClient(@RequestBody Client client){
+        if(client.getId() == null) {
+            return new ResponseEntity<>(clientService.createOrUpdateClient(client), HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(clientService.createOrUpdateClient(client), HttpStatus.OK);
     }
 
     @GetMapping("/clients/dto")
@@ -61,6 +63,14 @@ public class ClientRestController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(clients,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/clients/{id}/delete")
+    public ResponseEntity<?> deleteById(@PathVariable Long id){
+        if(clientService.deleteClientById(id) > 0){
+            return new ResponseEntity<>(clientService.deleteClientById(id), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
 }

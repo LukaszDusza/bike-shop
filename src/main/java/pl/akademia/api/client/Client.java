@@ -36,6 +36,6 @@ public class Client {
   @Column(name = "registration_Date", nullable = false)
   private Date registrationDate;
 
-  @OneToOne(cascade = {CascadeType.ALL})
+  @OneToOne(cascade = CascadeType.ALL)
   private Address address;
 }
