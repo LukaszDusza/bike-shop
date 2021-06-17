@@ -53,7 +53,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
   }
 
-  @ExceptionHandler(value = {PropertyValueException.class})
+  @ExceptionHandler(value = {PropertyValueException.class}) //mam wątpliwości czy o to chodziło, metoda ma za zadanie łapanie błędów związanych z brakiem wszystkich wymaganych danych do stworzenia zamówienia. Jednakże przy takim jej zapisie będzie dziłała dla każdego wysąpienia wyjątku PropertyValueException (przy tworzeniu innych obiektów niż Order).
   protected ResponseEntity<Object> missingOrderParamException(PropertyValueException e, WebRequest request) {
     ExceptionBody body = ExceptionBody
             .builder()
