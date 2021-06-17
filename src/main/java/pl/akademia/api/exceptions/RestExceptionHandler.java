@@ -1,5 +1,6 @@
 package pl.akademia.api.exceptions;
 
+import org.hibernate.PropertyValueException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,5 +25,43 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         .timestamp(new Date().toString())
         .build();
     return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+  }
+
+  @ExceptionHandler(value = {OrderNotFoundException.class})
+  protected ResponseEntity<Object> handleOrderNotFoundException(RuntimeException e, WebRequest request) {
+    String min = request.getParameter("min");
+    String max = request.getParameter("max");
+    ExceptionBody body = ExceptionBody
+            .builder()
+            .message(e.getMessage() + " range: " + min + " - " + max)
+            .status(404)
+            .path(request.getDescription(true))
+            .timestamp(new Date().toString())
+            .build();
+    return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+  }
+
+  @ExceptionHandler(value = {OrderNotFoundByException.class})
+  protected ResponseEntity<Object> handleOrderNotFoundByException(RuntimeException e, WebRequest request) {
+    ExceptionBody body = ExceptionBody
+            .builder()
+            .message(e.getMessage())
+            .status(404)
+            .path(request.getDescription(true))
+            .timestamp(new Date().toString())
+            .build();
+    return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+  }
+
+  @ExceptionHandler(value = {PropertyValueException.class})
+  protected ResponseEntity<Object> missingOrderParamException(PropertyValueException e, WebRequest request) {
+    ExceptionBody body = ExceptionBody
+            .builder()
+            .message(e.getMessage())
+            .status(500)
+            .path(request.getDescription(true))
+            .timestamp(new Date().toString())
+            .build();
+    return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
   }
 }
