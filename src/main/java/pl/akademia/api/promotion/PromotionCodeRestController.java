@@ -25,19 +25,24 @@ public class PromotionCodeRestController {
         return new ResponseEntity<>(promotionCodeService.createPromotionCode(activeDays, discount), HttpStatus.CREATED);
     }
 
-    @GetMapping("/promocodes/{a}")
-    public ResponseEntity<List<PromotionCode>> getAllPromotionCodes(@RequestParam(required = false) String a){
-        List<PromotionCode> promotionCodes;
-        if ("active".equals(a)) promotionCodes = promotionCodeService.getActivePromotionCodeByCode();
-        else if ("inactive".equals(a)) promotionCodes = promotionCodeService.getInactivePromotionCodeByCode();
-        else if (a == null) promotionCodes = promotionCodeService.getAllPromotionCode();
-        else {
-            throw new PromoCodeNotFoundException("Promo codes were not found! ");
-        }
+    @GetMapping("/promocodes/{promoCodeStatus}")
+    public ResponseEntity<List<PromotionCode>> getAllPromotionCodes(@RequestParam(required = false) String promoCodeStatus){
+
+        List<PromotionCode> promotionCodes = null;
         if (promotionCodes.isEmpty()) {
-            throw new PromoCodeNotFoundException("Promo codes were not found! ");
+            throw new PromoCodeNotFoundException("Promo code  does not exists! ");
         }
-        return new ResponseEntity<>(promotionCodes, HttpStatus.OK);
+        if ("active".equals(promoCodeStatus)) {
+            promotionCodes = promotionCodeService.getActivePromotionCodeByCode();
+            return new ResponseEntity<>(promotionCodes, HttpStatus.OK);}
+
+        if ("inactive".equals(promoCodeStatus)){
+            promotionCodes = promotionCodeService.getInactivePromotionCodeByCode();
+            return new ResponseEntity<>(promotionCodes, HttpStatus.OK);}
+
+        if (promoCodeStatus == null){
+            promotionCodes = promotionCodeService.getAllPromotionCode();}
+            return new ResponseEntity<>(promotionCodes, HttpStatus.OK);
     }
 
     @GetMapping("/promocodes/{promocode}")
@@ -67,8 +72,9 @@ public class PromotionCodeRestController {
     }
     @DeleteMapping("/promocode/{id}/delete")
     public ResponseEntity<PromotionCode> deletePromotionCodeById(@PathVariable Long id){
-        if (promotionCodeService.deletePromotionCodesById(id) > 0) return new ResponseEntity<>(HttpStatus.OK);
-        else throw new PromoCodeNotFoundException("Promo code by this ID does not exists! ");
+        if (promotionCodeService.deletePromotionCodesById(id) > 0) {
+            return new ResponseEntity<>(HttpStatus.OK);}
+        throw new PromoCodeNotFoundException("Promo code by this ID does not exists! ");
     }
 
 
