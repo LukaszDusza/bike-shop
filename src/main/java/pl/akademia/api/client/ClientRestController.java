@@ -1,6 +1,8 @@
 package pl.akademia.api.client;
 
 
+import org.hibernate.HibernateException;
+import org.hibernate.PropertyValueException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.akademia.api.exceptions.ClientNotFoundException;
 
+import java.sql.DataTruncation;
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -29,13 +34,13 @@ public class ClientRestController {
         if(email != null) {
             Client client = clientService.getClientByEmail(email);
             if (client == null) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                throw new ClientNotFoundException("Client not found");
             }
             return new ResponseEntity<>(client, HttpStatus.OK);
         }
         List<Client> clients = clientService.getAllClients();
         if (clients.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            throw new ClientNotFoundException("List of clients is empty");
         }
         return new ResponseEntity<>(clients,HttpStatus.OK);
     }
@@ -44,13 +49,13 @@ public class ClientRestController {
     public ResponseEntity<Client> getClientById(@PathVariable Long id) {
         Client client = clientService.getClientById(id);
         if (client == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new ClientNotFoundException("Client not found");
         }
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
     @PostMapping("/clients")
-    public ResponseEntity<Client> createOrUpdateClient(@RequestBody Client client){
+    public ResponseEntity<Client> createOrUpdateClient(@RequestBody Client client) {
         if(client.getId() == null) {
             return new ResponseEntity<>(clientService.createOrUpdateClient(client), HttpStatus.CREATED);
         }
@@ -61,7 +66,7 @@ public class ClientRestController {
     public ResponseEntity<List<ClientDTO>> getClientsDTO() {
         List<ClientDTO> clients = clientService.getAllClientsDTO();
         if (clients.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            throw new ClientNotFoundException("List of clients is empty");
         }
         return new ResponseEntity<>(clients,HttpStatus.OK);
     }
