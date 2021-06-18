@@ -66,7 +66,6 @@ public class BikeRestController {
     else
       return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
   }
-
   @GetMapping("/bikes/{value}/price")
   public void switchPrice(@PathVariable BigDecimal value) {
     bikeService.switchPrice(value);

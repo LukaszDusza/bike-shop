@@ -19,12 +19,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleNotFoundException(RuntimeException e, WebRequest request) {
     String param = request.getParameter("serial");
     ExceptionBody body = ExceptionBody
-        .builder()
-        .message(e.getMessage() + " serialNumber: " + param)
-        .status(404)
-        .path(request.getDescription(true))
-        .timestamp(new Date().toString())
-        .build();
+            .builder()
+            .message(e.getMessage() + " serialNumber: " + param)
+            .status(404)
+            .path(request.getDescription(true))
+            .timestamp(new Date().toString())
+            .build();
     return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
   }
 
@@ -37,7 +37,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     ExceptionBody body = ExceptionBody
             .builder()
             .message(e.getMessage())
-            .status(500)
+            .status(HttpStatus.NOT_ACCEPTABLE.value())
             .path(request.getDescription(true))
             .timestamp(new Date().toString())
             .build();
