@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -25,4 +27,21 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         .build();
     return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
   }
+
+
+
+  @ExceptionHandler(value = {PropertyValueException.class})
+ // @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+ // @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+  protected ResponseEntity<Object> handleNullableValueException(PropertyValueException e, WebRequest request) {
+    ExceptionBody body = ExceptionBody
+            .builder()
+            .message(e.getMessage())
+            .status(500)
+            .path(request.getDescription(true))
+            .timestamp(new Date().toString())
+            .build();
+    return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, request);
+  }
+
 }
