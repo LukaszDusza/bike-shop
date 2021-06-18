@@ -16,14 +16,27 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(value = {BikeNotFoundException.class})
   protected ResponseEntity<Object> handleNotFoundException(RuntimeException e, WebRequest request) {
-    String param = request.getParameter("serial");
     ExceptionBody body = ExceptionBody
         .builder()
-        .message(e.getMessage() + " serialNumber: " + param)
+        .message(e.getMessage() + " serialNumber: " + request.getParameter("serial"))
         .status(404)
         .path(request.getDescription(true))
         .timestamp(new Date().toString())
         .build();
+    return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+  }
+
+  @ExceptionHandler(value = {OrderNotFoundException.class})
+  protected ResponseEntity<Object> handleOrderNotFoundException(RuntimeException e, WebRequest request) {
+    String min = request.getParameter("min");
+    String max = request.getParameter("max");
+    ExceptionBody body = ExceptionBody
+            .builder()
+            .message(e.getMessage() + " range: " + min + " - " + max)
+            .status(404)
+            .path(request.getDescription(true))
+            .timestamp(new Date().toString())
+            .build();
     return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
   }
 
@@ -49,6 +62,19 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         .path(request.getDescription(true))
         .timestamp(new Date().toString())
         .build();
+    return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, request);
+  }
+
+
+  @ExceptionHandler(value = {RequestBodyHasNullFieldException.class})
+  protected ResponseEntity<Object> handleMissingOrderParamException(RequestBodyHasNullFieldException e, WebRequest request) {
+    ExceptionBody body = ExceptionBody
+            .builder()
+            .message(e.getMessage() + " request: " + request.toString())
+            .status(406)
+            .path(request.getDescription(true))
+            .timestamp(new Date().toString())
+            .build();
     return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, request);
   }
 }
