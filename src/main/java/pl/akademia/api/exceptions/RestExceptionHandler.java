@@ -1,6 +1,5 @@
 package pl.akademia.api.exceptions;
 
-import org.hibernate.PropertyValueException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +15,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(value = {BikeNotFoundException.class})
   protected ResponseEntity<Object> handleNotFoundException(RuntimeException e, WebRequest request) {
-    String param = request.getParameter("serial");
     ExceptionBody body = ExceptionBody
         .builder()
-        .message(e.getMessage() + " serialNumber: " + param)
+        .message(e.getMessage() + " serialNumber: " + request.getParameter("serial"))
         .status(404)
         .path(request.getDescription(true))
         .timestamp(new Date().toString())
@@ -41,23 +39,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
   }
 
-  @ExceptionHandler(value = {OrderNotFoundByException.class})
-  protected ResponseEntity<Object> handleOrderNotFoundByException(RuntimeException e, WebRequest request) {
-    ExceptionBody body = ExceptionBody
-            .builder()
-            .message(e.getMessage())
-            .status(404)
-            .path(request.getDescription(true))
-            .timestamp(new Date().toString())
-            .build();
-    return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
-  }
 
-  @ExceptionHandler(value = {PropertyValueException.class}) //mam wątpliwości czy o to chodziło, metoda ma za zadanie łapanie błędów związanych z brakiem wszystkich wymaganych danych do stworzenia zamówienia. Jednakże przy takim jej zapisie będzie dziłała dla każdego wysąpienia wyjątku PropertyValueException (przy tworzeniu innych obiektów niż Order).
-  protected ResponseEntity<Object> handleMissingOrderParamException(PropertyValueException e, WebRequest request) {
+  @ExceptionHandler(value = {RequestBodyHasNullFieldException.class})
+  protected ResponseEntity<Object> handleMissingOrderParamException(RequestBodyHasNullFieldException e, WebRequest request) {
     ExceptionBody body = ExceptionBody
             .builder()
-            .message("Required not-null value for: " + e.getPropertyName())
+            .message(e.getMessage() + " request: " + request.toString())
             .status(406)
             .path(request.getDescription(true))
             .timestamp(new Date().toString())
