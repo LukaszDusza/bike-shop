@@ -1,8 +1,6 @@
 package pl.akademia.api.exceptions;
 
-import org.hibernate.HibernateException;
 import org.hibernate.PropertyValueException;
-import org.hibernate.TransactionException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,30 +31,24 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleNotFoundClientException(RuntimeException e, WebRequest request) {
     String param = request.getParameter("id");
     ExceptionBody body = ExceptionBody
-            .builder()
-            .message(e.getMessage() + " id: " + param)
-            .status(404)
-            .path(request.getDescription(true))
-            .timestamp(new Date().toString())
-            .build();
+        .builder()
+        .message(e.getMessage() + " id: " + param)
+        .status(HttpStatus.NOT_FOUND.value())
+        .path(request.getDescription(true))
+        .timestamp(new Date().toString())
+        .build();
     return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
   }
 
   @ExceptionHandler(value = {PropertyValueException.class})
   protected ResponseEntity<Object> handleNullableValueException(PropertyValueException e, WebRequest request) {
     ExceptionBody body = ExceptionBody
-            .builder()
-            .message("Property value can't be nullable")
-            .status(406)
-            .path(request.getDescription(true))
-            .timestamp(new Date().toString())
-            .build();
+        .builder()
+        .message("Property value can't be nullable")
+        .status(HttpStatus.NOT_ACCEPTABLE.value())
+        .path(request.getDescription(true))
+        .timestamp(new Date().toString())
+        .build();
     return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, request);
   }
-
-
-
-
-
-
 }
