@@ -1,5 +1,7 @@
 package pl.akademia.api.promotion;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,6 +22,7 @@ public class PromotionCodeService {
 
     private final int maxMultipleUse = 20;
 
+    private final static Logger logger = LoggerFactory.getLogger(PromotionCodeService.class);
 
     private final PromotionCodeRepository promotionCodeRepository;
 
@@ -36,8 +39,11 @@ public class PromotionCodeService {
         promotionCode.setMultipleUse(ThreadLocalRandom.current().nextBoolean());
         if (promotionCode.isMultipleUse()) {
             promotionCode.setUsePromotionCodeCounter(ThreadLocalRandom.current().nextInt(2, maxMultipleUse));
-        } else
+            logger.info("Created promotion code with multiple use ({}), with {} discount in zloty", promotionCode.getUsePromotionCodeCounter(), promotionCode.getDiscount());
+        } else {
             promotionCode.setUsePromotionCodeCounter(1);
+            logger.info("Created promotion code with one use, with {} discount in zloty", promotionCode.getDiscount());
+        }
         return promotionCodeRepository.save(promotionCode);
     }
 
@@ -68,36 +74,53 @@ public class PromotionCodeService {
     }
 
     public PromotionCode getPromotionCodeByCode(String promotionCode) {
+        logger.info("Return promotion code: {}", promotionCode);
         return promotionCodeRepository.getPromotionCodeByCode(promotionCode);
     }
 
     public List<PromotionCode> getActivePromotionCodeByCode(){
-        return promotionCodeRepository.getActivePromotionCodeByCode();
+        List<PromotionCode> promotionCodes = promotionCodeRepository.getActivePromotionCodeByCode();
+        logger.info("Return {} active promotion codes", promotionCodes.size());
+        return promotionCodes;
     }
 
     public List<PromotionCode> getInactivePromotionCodeByCode(){
-        return promotionCodeRepository.getInactivePromotionCodeByCode();
+        List<PromotionCode> promotionCodes = promotionCodeRepository.getInactivePromotionCodeByCode();
+        logger.info("Return {} inactive promotion codes", promotionCodes.size());
+        return promotionCodes ;
     }
 
     public PromotionCode usePromotionCode(String promotionCode) throws WrongPromotionCodeException {
         PromotionCode pC = getPromotionCodeByCode(promotionCode);
-        if (pC.getUsedDate() != null) throw new WrongPromotionCodeException("Wrong or Used Promo Code");
+        if (pC.getUsedDate() != null) {
+            logger.error("Exception: Wrong or Used Promo Code");
+            throw new WrongPromotionCodeException("Wrong or Used Promo Code");
+        }
+        logger.info("Used {} promotion code", promotionCode);
         pC.setUsePromotionCodeCounter(pC.getUsePromotionCodeCounter() - 1);
-        if (pC.getUsePromotionCodeCounter() == 0) pC.setUsedDate(Date.valueOf(LocalDate.now()));
+        if (pC.getUsePromotionCodeCounter() == 0) {
+            logger.info("Deactivated {} promotion code", promotionCode);
+            pC.setUsedDate(Date.valueOf(LocalDate.now()));
+        }
         return promotionCodeRepository.save(pC);
     }
 
     public PromotionCode getPromotionCodeById(Long id) {
+        logger.info("Return promotion code with id {}", id);
         return promotionCodeRepository.findById(id).orElse(null);
     }
 
     public List<PromotionCode> getAllPromotionCode() {
-        return promotionCodeRepository.findAll();
+        List<PromotionCode> promotionCodes = promotionCodeRepository.findAll();
+        logger.info("Return {} promotion codes", promotionCodes.size());
+        return promotionCodes;
     }
 
     @Transactional
     public int deletePromotionCodesById(Long id) {
-        return promotionCodeRepository.deletePromotionCodeById(id);
+        int deletePromotionCodeById = promotionCodeRepository.deletePromotionCodeById(id);
+        logger.info("Deleted {} promotion codes", deletePromotionCodeById);
+        return deletePromotionCodeById;
     }
 
 
