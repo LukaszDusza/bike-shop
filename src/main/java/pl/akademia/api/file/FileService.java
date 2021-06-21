@@ -1,5 +1,7 @@
 package pl.akademia.api.file;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ import java.nio.file.attribute.BasicFileAttributes;
 @Service
 public class FileService {
 
+  private final static Logger logger = LoggerFactory.getLogger(FileService.class);
+
   // @Value("${files.directory}")
   private String directory = "C:\\files\\";
 
@@ -27,7 +31,10 @@ public class FileService {
   private void createDirectory() throws IOException {
     Path path = Paths.get(directory);
     if(Files.notExists(path)) {
+      logger.info("Create directory in path: {}", directory);
       Files.createDirectory(path);
+    } else {
+      logger.info("Directory for files exists: {}", directory);
     }
   }
 
@@ -44,21 +51,25 @@ public class FileService {
   }
 
   public String getWebLink(String fileName) {
-    return ServletUriComponentsBuilder
+    String link = ServletUriComponentsBuilder
         .fromCurrentContextPath()
         .path("/api/v1/files/")
         .path(fileName)
         .path("/image")
         .toUriString();
+    logger.info("Generated weblink for file {} : {}", fileName, link );
+    return link;
   }
 
   public Resource getFile(String file) {
     Path path = Paths.get(directory + file);
     try {
+      logger.info("find resource: {}", path.toString());
       return new UrlResource(path.toUri());
     } catch (MalformedURLException e) {
-      e.printStackTrace();
+      logger.error("Exception: {}", e.getMessage());
     }
+    logger.error("Cannot find resource for file: {}", file);
     return null;
   }
 }
