@@ -30,6 +30,7 @@ private final static Logger logger = LoggerFactory.getLogger(BikeService.class);
     // blad i logowac doslownie kazdy event naszej aplki
     // WARN = nie jest to bład, ale cos mogloby zadzialac lepiej.
     // TRACE  - kiedy serio chcesz debugowac niskopoziomowo
+    // ERROR - wszelkie niespodziewane/spodziewane bledy, np. bloki catch, ify, cos co spowodowalo blad apki.
     List<Bike> bikes = bikeRepository.findAll();
     logger.debug("Return {} bikes.", bikes.size());
     return bikes;
