@@ -6,6 +6,8 @@ import pl.akademia.api.promotion.PromotionCode;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 @Data
 @Entity
@@ -46,5 +48,9 @@ public class Order {
     @OneToOne
     @JoinColumn(name = "promo_code_id")
     private PromotionCode promoCode;
+
+    boolean anyFieldIsNull() {
+       return Stream.of(orderDate, additionalInfo).anyMatch(Objects::isNull);
+    }
 
 }
