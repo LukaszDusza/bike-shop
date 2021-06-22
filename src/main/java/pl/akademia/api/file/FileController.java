@@ -1,5 +1,7 @@
 package pl.akademia.api.file;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,7 +28,7 @@ import java.nio.file.Paths;
 public class FileController {
 
   private final FileService fileService;
-
+  private final static Logger logger = LoggerFactory.getLogger(FileController.class);
   public FileController(FileService fileService) {
     this.fileService = fileService;
   }
@@ -35,11 +37,13 @@ public class FileController {
   public ResponseEntity<?> getFile(@PathVariable String file) throws IOException {
     Resource resource = fileService.getFile(file);
     if (!resource.exists()){
+      logger.error("File {} doesn't exists", file);
       throw new ResourceNotFoundException("The resource is unknown");
     }
     File targetFile = new File(resource.getFile().getAbsolutePath());
     String contentType = Files.probeContentType(Paths.get(resource.getURI()));
     if(contentType==null){
+      logger.error("Wrong file {} type", file);
       throw new FileTypeNotFoundException("The file type is unknown");
     }
     return ResponseEntity
@@ -56,8 +60,10 @@ public class FileController {
   @PostMapping("/files/{file}")
   public ResponseEntity<LocalFile> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
     if (file.getSize() < 10_000_000L) {
+      logger.info("Uploaded file {}", file);
       return new ResponseEntity<>(fileService.uploadFile(file), HttpStatus.CREATED);
     } else {
+      logger.error("Chosen file {} is too big", file);
       throw new FileNotAcceptedException("The file is too big");
     }
   }
