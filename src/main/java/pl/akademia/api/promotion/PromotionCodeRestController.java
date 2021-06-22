@@ -1,6 +1,5 @@
 package pl.akademia.api.promotion;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,15 +22,27 @@ public class PromotionCodeRestController {
         return new ResponseEntity<>(promotionCodeService.createPromotionCode(activeDays, discount), HttpStatus.CREATED);
     }
 
-    @GetMapping("/promocodes/{a}")
-    public ResponseEntity<List<PromotionCode>> getAllPromotionCodes(@RequestParam(required = false) String a){
+    @GetMapping("/promocodes/{promoCodeStatus}")
+    public ResponseEntity<List<PromotionCode>> getAllPromotionCodes(@RequestParam(required = false) String promoCodeStatus){
         List<PromotionCode> promotionCodes;
-        if ("active".equals(a)) promotionCodes = promotionCodeService.getActivePromotionCodeByCode();
-        else if ("inactive".equals(a)) promotionCodes = promotionCodeService.getInactivePromotionCodeByCode();
-        else if (a == null) promotionCodes = promotionCodeService.getAllPromotionCode();
-        else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        if (promotionCodes.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        return new ResponseEntity<>(promotionCodes, HttpStatus.OK);
+        if ("active".equals(promoCodeStatus)) {
+            promotionCodes = promotionCodeService.getActivePromotionCodeByCode();
+            if (promotionCodes.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(promotionCodes, HttpStatus.OK);
+        }
+
+        if ("inactive".equals(promoCodeStatus)) {
+            promotionCodes = promotionCodeService.getInactivePromotionCodeByCode();
+            if (promotionCodes.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(promotionCodes, HttpStatus.OK);
+        }
+
+        if (promoCodeStatus == null) {
+            promotionCodes = promotionCodeService.getAllPromotionCode();
+            if (promotionCodes.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(promotionCodes, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/promocodes/{promocode}")
