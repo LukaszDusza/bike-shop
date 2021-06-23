@@ -37,16 +37,18 @@ private final static Logger logger = LoggerFactory.getLogger(BikeService.class);
   }
 
   public Bike getBikeById(Long id) {
-
+    logger.info("Return bike by id: {}", id);
     return bikeRepository.findById(id).orElse(null);
   }
 
   public Bike createOrUpdateBike(Bike bike) {
+    logger.info("Bike is created");
     return bikeRepository.save(bike);
   }
 
   @Transactional
   public int deleteBikeById(Long id) {
+    logger.info("Bike by id:{} deleted",id);
     return bikeRepository.deleteBikeById(id);
   }
 
@@ -56,12 +58,17 @@ private final static Logger logger = LoggerFactory.getLogger(BikeService.class);
   }
 
   public BigDecimal averagePriceByBrand(String brand){
+    logger.info("Get average price by brand");
     return bikeRepository.averagePriceByBrand(brand);
   }
 
   public int allBikesAmount(){
+    logger.info("Get amount of all bikes");
     return bikeRepository.allBikesAmount();
   }
 
-  public Bike getBikeBySerialNumber(String serialNumber){return bikeRepository.getBikeBySerialNumber(serialNumber);}
+  public Bike getBikeBySerialNumber(String serialNumber){
+    logger.info("Get bike by serial number:{}"+serialNumber);
+    return bikeRepository.getBikeBySerialNumber(serialNumber);
+  }
 }
