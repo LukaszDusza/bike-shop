@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.sql.Date;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 @Data
 @Entity
@@ -38,4 +40,8 @@ public class Client {
 
   @OneToOne(cascade = CascadeType.ALL)
   private Address address;
+
+  boolean isAnyFieldNull(){
+    return Stream.of(name, lastName, email, registrationDate).anyMatch(Objects::isNull);
+  }
 }

@@ -1,14 +1,20 @@
 package pl.akademia.api.client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import pl.akademia.api.utils.DTOMapper;
 
 @Component
 public class ClientMapper implements DTOMapper<Client, ClientDTO> {
 
+  private final static Logger logger = LoggerFactory.getLogger(ClientMapper.class);
+
+
   @Override
   public ClientDTO from(Client from) {
-    return ClientDTO
+    logger.info("Client entity {}", from.toString());
+    ClientDTO clientDTO = ClientDTO
         .builder()
         .name(from.getName())
         .lastName(from.getLastName())
@@ -21,5 +27,8 @@ public class ClientMapper implements DTOMapper<Client, ClientDTO> {
             from.getAddress().getCity(),
             from.getAddress().getPostalCode()))
         .build();
+    logger.info("Created ClientDTO: {}", clientDTO.toString());
+    return clientDTO;
   }
+
 }
