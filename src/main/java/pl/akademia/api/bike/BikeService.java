@@ -24,13 +24,6 @@ private final static Logger logger = LoggerFactory.getLogger(BikeService.class);
 
   public List<Bike> getAllBikes() {
     logger.info("try to return all bikes");
-    //todo logujemy cala apke
-    // INFO - wszystko to co informacyjne i moze pomoc w ocenie działania aplikacji
-    // DEBUG - czyli b.szczegółowe logowanie. uzywamy gdy chcemy znalezc
-    // blad i logowac doslownie kazdy event naszej aplki
-    // WARN = nie jest to bład, ale cos mogloby zadzialac lepiej.
-    // TRACE  - kiedy serio chcesz debugowac niskopoziomowo
-    // ERROR - wszelkie niespodziewane/spodziewane bledy, np. bloki catch, ify, cos co spowodowalo blad apki.
     List<Bike> bikes = bikeRepository.findAll();
     logger.debug("Return {} bikes.", bikes.size());
     return bikes;
@@ -63,5 +56,7 @@ private final static Logger logger = LoggerFactory.getLogger(BikeService.class);
     return bikeRepository.allBikesAmount();
   }
 
-  public Bike getBikeBySerialNumber(String serialNumber){return bikeRepository.getBikeBySerialNumber(serialNumber);}
+  public Bike getBikeBySerialNumber(String serialNumber){
+    return bikeRepository.getBikeBySerialNumber(serialNumber);
+  }
 }

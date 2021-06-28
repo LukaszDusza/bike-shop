@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.akademia.api.exceptions.ClientNotFoundException;
 import pl.akademia.api.exceptions.RequestBodyHasNullFieldException;
 
-import java.sql.DataTruncation;
-import java.sql.SQLException;
 import java.util.List;
 
 @RestController
