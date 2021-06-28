@@ -1,5 +1,7 @@
 package pl.akademia.api.client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -10,6 +12,8 @@ import java.util.stream.Collectors;
 @Service
 public class ClientService {
 
+    private static final Logger logger = LoggerFactory.getLogger(ClientService.class);
+
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
 
@@ -19,15 +23,19 @@ public class ClientService {
     }
 
     public List<Client> getAllClients() {
-        return clientRepository.findAll();
+        List<Client> clients = clientRepository.findAll();
+        logger.debug("Return {} clients.", clients.size());
+        return clients;
     }
 
     public List<ClientDTO> getAllClientsDTO() {
-        return clientRepository
+        List<ClientDTO> clientDTOs = clientRepository
             .findAll()
             .stream()
             .map(clientMapper::from)
             .collect(Collectors.toList());
+        logger.info("Return {} clientDTOs.", clientDTOs.size());
+        return clientDTOs;
     }
 
     public Client getClientById(Long id) {
@@ -39,6 +47,7 @@ public class ClientService {
     }
 
     public Client getClientByEmail(String email) {
+        logger.info("Return Client with email: {}", email);
         return clientRepository.getClientByEmail(email);
     }
 
