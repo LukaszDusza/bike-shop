@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="headers::default"></head>
+<body>
+<div class="container">
+    <table class="table table-success table-striped" th:fragment="table_success" xmlns:th="https://www.thymeleaf.org">
+        <tr>
+            <th>id</th>
+            <th>brand</th>
+            <th>price</th>
+        </tr>
+        <tr th:each = "r : ${bikes}">
+            <td th:text="${r.getId()}"></td>
+            <td th:text="${r.getBrand()}"></td>
+            <td th:text="${r.getPrice()}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

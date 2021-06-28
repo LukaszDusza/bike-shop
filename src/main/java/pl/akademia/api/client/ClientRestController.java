@@ -1,8 +1,6 @@
 package pl.akademia.api.client;
 
 
-import org.hibernate.HibernateException;
-import org.hibernate.PropertyValueException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.akademia.api.exceptions.ClientNotFoundException;
 
-import java.sql.DataTruncation;
-import java.sql.SQLException;
 import java.util.List;
 
 @RestController
