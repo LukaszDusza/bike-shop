@@ -1,5 +1,7 @@
 package pl.akademia.api.order;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.util.List;
 public class OrderRestController {
 
     private final OrderService orderService;
+    public static final Logger logger = LoggerFactory.getLogger(OrderRestController.class);
 
     public OrderRestController(OrderService orderService) {
         this.orderService = orderService;
@@ -25,11 +28,13 @@ public class OrderRestController {
         if (min == null && max == null) {
             orders = orderService.getAllOrders();
             if (orders.isEmpty()) {
+                logger.info("OrderNotFoundException: BikeShop has no any orders yet.");
                 throw new OrderNotFoundException("BikeShop has no any orders yet.");
             }
         } else {
             orders = orderService.getOrderBySize(min, max);
             if (orders.isEmpty()) {
+                logger.info("OrderNotFoundException: Orders not found for the range: {} - {}.", min, max);
                 throw new OrderNotFoundException("Orders not found for the");
             }
         }
@@ -40,7 +45,8 @@ public class OrderRestController {
     public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
         Order order = orderService.getOrderById(id);
         if (order == null) {
-            throw new OrderNotFoundException("Order not found by id = " + id); //czy umieszczenie zmiennej id w tym miejscu jest prawidłowym podejściem czy też powinienem umieścić ją w RestExceptionHandler w metodzie jako request.getParameter?
+            logger.info("Order not found by id = {}.", id);
+            throw new OrderNotFoundException("Order not found by id = " + id);
         }
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
@@ -49,6 +55,7 @@ public class OrderRestController {
     public ResponseEntity<List<Order>> getOrderByDate(@PathVariable Date date) {
         List<Order> orders = orderService.getOrderByDate(date);
         if (orders.isEmpty()) {
+            logger.info("Order not found for date: {}.", date);
             throw new OrderNotFoundException("Orders not found for date: " + date);
         }
         return new ResponseEntity<>(orders, HttpStatus.OK);
@@ -60,6 +67,7 @@ public class OrderRestController {
                                             @RequestParam(required = false) String promoCode) {
 
         if(order.anyFieldIsNull()) {
+            logger.error("Exception: Order has null field");
             throw new RequestBodyHasNullFieldException("Order has null field");
         }
         if (promoCode == null) {
@@ -69,9 +77,10 @@ public class OrderRestController {
     }
 
     @GetMapping("/orders/client/{id}")
-    public ResponseEntity<List<Order>> getOrderByClientId(@PathVariable Long id) { //czy w ramach tej metody próbować łapać błąd związany z brakiem klienta w DB? Obecnie po podaniu id, które nie istnieje wyświetla: "Client has no any orders yet. Client id = " + id.
+    public ResponseEntity<List<Order>> getOrderByClientId(@PathVariable Long id) {
         List<Order> orders = orderService.getOrderByClientId(id);
         if (orders.isEmpty()) {
+            logger.info("Client has no any orders yet. Client id = {}.", id);
             throw new OrderNotFoundException("Client has no any orders yet. Client id = " + id);
         }
         return new ResponseEntity<>(orders, HttpStatus.OK);

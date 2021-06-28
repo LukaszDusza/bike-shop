@@ -113,4 +113,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             .build();
     return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, request);
   }
+
+  @ExceptionHandler(value = {BasketNotFoundException.class})
+  protected ResponseEntity<Object> handleBasketNotFoundException(RuntimeException e, WebRequest request) {
+    ExceptionBody body = ExceptionBody
+            .builder()
+            .message(e.getMessage())
+            .status(404)
+            .path(request.getDescription(true))
+            .timestamp(new Date().toString())
+            .build();
+    return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+  }
 }
