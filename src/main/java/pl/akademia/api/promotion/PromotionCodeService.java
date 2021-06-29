@@ -32,6 +32,7 @@ public class PromotionCodeService {
         promotionCode.setPromotionCode(UUID.randomUUID().toString());
         promotionCode.setGenerateDate(Date.valueOf(LocalDate.now()));
         promotionCode.setExpDate(Date.valueOf(promotionCode.getGenerateDate().toLocalDate().plusDays(activeDays)));
+        promotionCode.setActiveDays(activeDays);
         promotionCode.setDiscount(discount);
         promotionCode.setMultipleUse(ThreadLocalRandom.current().nextBoolean());
         if (promotionCode.isMultipleUse()) {

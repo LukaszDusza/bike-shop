@@ -53,17 +53,17 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
   }
 
-  @ExceptionHandler(value = {PropertyValueException.class})
-  protected ResponseEntity<Object> handleNullableValueException(PropertyValueException e, WebRequest request) {
-    ExceptionBody body = ExceptionBody
-        .builder()
-        .message("Property value can't be nullable")
-        .status(HttpStatus.NOT_ACCEPTABLE.value())
-        .path(request.getDescription(true))
-        .timestamp(new Date().toString())
-        .build();
-    return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, request);
-  }
+//  @ExceptionHandler(value = {PropertyValueException.class})
+//  protected ResponseEntity<Object> handleNullableValueException(PropertyValueException e, WebRequest request) {
+//    ExceptionBody body = ExceptionBody
+//        .builder()
+//        .message("Property value can't be nullable")
+//        .status(HttpStatus.NOT_ACCEPTABLE.value())
+//        .path(request.getDescription(true))
+//        .timestamp(new Date().toString())
+//        .build();
+//    return handleExceptionInternal(e, body, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, request);
+//  }
 
 
   @ExceptionHandler(value = {RequestBodyHasNullFieldException.class})
