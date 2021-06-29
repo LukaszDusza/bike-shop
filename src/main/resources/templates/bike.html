@@ -3,51 +3,98 @@
 <head th:replace="headers::default"></head>
 <body>
 <div class="container">
-  <div class="row">
-    <div class="alert alert-success w-100" role="alert" th:if="${info != null}">
-      <p th:text="${info}"></p>
-    </div>
-  </div>
 
-  <div class="mb-3">
-    <h2> Zaktualizuj lub dodaj rower </h2>
-  </div>
+  <div class="list-group-horizontal-lg">
 
-  <div class="mb-3">
-    <form method="post" th:action="@{/add/bike}">
-      <div class="mb-3">
-        <label for="id" class="form-label">Id aktualizowanego roweru</label>
-        <input name="id" class="form-control-sm" id="id" placeholder="wpisz id" th:type="text">
-      </div>
-
-      <div class="mb-3">
-        <label for="type" class="form-label">Typ roweru</label>
-        <input name="type" class="form-control-sm" id="type" placeholder="wpisz typ roweru" th:type="text">
-      </div>
-
-      <div class="mb-3">
-        <label for="brand" class="form-label">Marka roweru</label>
-        <input name="brand" class="form-control-sm" id="brand" placeholder="wpisz producenta" th:type="text">
-      </div>
-
-      <div class="mb-3">
-        <label for="price" class="form-label">Cena</label>
-        <input name="price" class="form-control-sm" id="price" placeholder="wpisz cenę" th:type="number">
-      </div>
-
-      <div class="mb-3">
-        <label for="stock" class="form-label">Ilość rowerów</label>
-        <input name="stock" class="form-control-sm" id="stock" placeholder="wpisz ilość rowerów" th:type="number">
-      </div>
-
-      <div class="mb-3">
-        <label for="serialNumber" class="form-label">Numer seryjny</label>
-        <input name="serialNumber" class="form-control-sm" id="serialNumber" placeholder="wpisz numer seryjny" th:type="text">
-      </div>
-
-      <input type="submit" value="zatwierdź">
-      <input type="reset" value="odrzuć">
+    <form action="/addBike">
+      <button type="submit" class="btn btn-outline-primary">zaktualizuj/dodaj rower</button>
     </form>
+
+    <form action="/getBikes">
+      <button type="submit" class="btn btn-outline-primary">pokaż wszystkie rowery</button>
+    </form>
+
+    <form action="/getBikeById">
+      <button type="submit" class="btn btn-outline-primary">znajdź rower po ID</button>
+      <input name="id" class="form-control-sm" placeholder="wpisz id" th:type="text">
+    </form>
+
+    <form action="/getBikeBySerialNumber">
+      <button type="submit" class="btn btn-outline-primary">znajdź rower po numerze seryjnym</button>
+      <input name="serialNumber" class="form-control-sm" placeholder="wpisz numer seryjny" th:type="text">
+    </form>
+
+    <form action="/delete/bike">
+      <button type="submit" class="btn btn-outline-primary">usuń rower po ID</button>
+      <input name="id" class="form-control-sm" placeholder="wpisz id" th:type="text">
+    </form>
+
+    <div class="row">
+      <div class="alert alert-success w-100" role="alert" th:if="${info != null}">
+        <p th:text="${info}"></p>
+      </div>
+    </div>
+
+    <table class="table table-success table-striped" xmlns:th="https://www.thymeleaf.org"
+           th:if="${bikeById != null}">
+      <tr>
+        <th>id</th>
+        <th>type</th>
+        <th>brand</th>
+        <th>price</th>
+        <th>stock</th>
+        <th>serial_number</th>
+      </tr>
+      <tr th:value="${bikeById}">
+        <td th:text="${bikeById.getId()}"></td>
+        <td th:text="${bikeById.getType()}"></td>
+        <td th:text="${bikeById.getBrand()}"></td>
+        <td th:text="${bikeById.getPrice()}"></td>
+        <td th:text="${bikeById.getStock()}"></td>
+        <td th:text="${bikeById.getSerialNumber()}"></td>
+      </tr>
+    </table>
+
+    <table class="table table-success table-striped" xmlns:th="https://www.thymeleaf.org"
+           th:if="${bikeBySerialNumber != null}">
+      <tr>
+        <th>id</th>
+        <th>type</th>
+        <th>brand</th>
+        <th>price</th>
+        <th>stock</th>
+        <th>serial_number</th>
+      </tr>
+      <tr th:value="${bikeBySerialNumber}">
+        <td th:text="${bikeBySerialNumber.getId()}"></td>
+        <td th:text="${bikeBySerialNumber.getType()}"></td>
+        <td th:text="${bikeBySerialNumber.getBrand()}"></td>
+        <td th:text="${bikeBySerialNumber.getPrice()}"></td>
+        <td th:text="${bikeBySerialNumber.getStock()}"></td>
+        <td th:text="${bikeBySerialNumber.getSerialNumber()}"></td>
+      </tr>
+    </table>
+
+    <table class="table table-success table-striped" xmlns:th="https://www.thymeleaf.org"
+           th:if="${bikes != null}">
+      <tr>
+        <th>id</th>
+        <th>type</th>
+        <th>brand</th>
+        <th>price</th>
+        <th>stock</th>
+        <th>serial_number</th>
+      </tr>
+      <tr th:each = "b : ${bikes}">
+        <td th:text="${b.getId()}"></td>
+        <td th:text="${b.getType()}"></td>
+        <td th:text="${b.getBrand()}"></td>
+        <td th:text="${b.getPrice()}"></td>
+        <td th:text="${b.getStock()}"></td>
+        <td th:text="${b.getSerialNumber()}"></td>
+      </tr>
+    </table>
+
   </div>
 
 </div>
