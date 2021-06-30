@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<head th:replace="headers::default"></head>
 <body>
+
+<div class="alert alert-success w-100" th:if="${code != null}">
+    <p th:text="${'Wygenerowany kod: ' + code}"></p>
+</div>
 
 <form th:action="@{/promotionCodeCreator}"  method="post">
     <lable for="discount">Zniżka</lable>
