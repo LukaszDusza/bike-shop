@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="headers::default"></head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <form class="form form-group" method="post" th:action="@{/add/client}">
+                <input class="form-control" name="name" placeholder="wpisz imie" th:type="text">
+                <input class="form-control" name="lastName" placeholder="wpisz nazwisko" th:type="text">
+                <input class="form-control" name="email" placeholder="wpisz email" th:type="text">
+                <input class="form-control" name="phoneNumber" placeholder="wpisz number telefonu" th:type="text">
+                <input class="form-control" name="street" placeholder="wpisz ulice" th:type="text">
+                <input class="form-control" name="houseNumber" placeholder="wpisz numer domu" th:type="text">
+                <input class="form-control" name="postalCode" placeholder="wpisz kod pocztowy" th:type="text">
+                <input class="form-control" name="city" placeholder="wpisz miasto" th:type="text">
+                <input type="submit" value="zatwierdz">
+                <input type="reset" value="reset">
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
