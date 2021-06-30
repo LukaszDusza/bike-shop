@@ -19,7 +19,10 @@ public class FileFrontController {
 
         this.fileService = fileService;
     }
-
+@GetMapping("/files")
+public String getFile(){
+        return "files";
+}
 @PostMapping("/files")
 public String uploadFile(@RequestParam("file") MultipartFile file,
                          RedirectAttributes redirectAttributes) throws IOException {
@@ -28,6 +31,6 @@ public String uploadFile(@RequestParam("file") MultipartFile file,
        }
         fileService.uploadFile(file);
     redirectAttributes.addFlashAttribute("message","File is successfully uploaded"+file.getOriginalFilename());
-    return "upload";
+    return "redirected:/files";
 }
 }
