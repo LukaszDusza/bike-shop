@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="headers::default"></head>
+<body>
+
+<div class="alert alert-success w-100" th:if="${code != null}">
+    <p th:text="${'Wygenerowany kod: ' + code}"></p>
+</div>
+
+<form th:action="@{/promotionCodeCreator}"  method="post">
+    <lable for="discount">Zniżka</lable>
+    <input th:type="text" name="discount" th:value="${discount}" placeholder="podaj znizke">
+
+    <lable for="isMultipleUse">Wielokrotne użycie</lable>
+    <input th:type="checkbox" name="isMultipleUse">
+
+    <lable for="activeDays">Aktywność kodu w dniach</lable>
+    <input th:type="text" name="activeDays" th:value="${activeDays}" placeholder="Aktywności kodu w dniach">
+
+    <input type="submit" value="Generuj kod">
+    <span th:text="${generatedCode}"></span>
+</form>
+
+</body>
+</html>

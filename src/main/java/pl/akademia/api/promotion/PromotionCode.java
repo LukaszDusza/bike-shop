@@ -40,8 +40,8 @@ public class PromotionCode {
     @Column(name = "multiple_use", nullable = false)
     private int usePromotionCodeCounter;
 
-
-
+    @Column(name = "active_days", nullable = false)
+    private int activeDays;
 
 
 }
