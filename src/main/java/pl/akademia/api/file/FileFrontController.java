@@ -20,7 +20,6 @@ public class FileFrontController {
         this.fileService = fileService;
     }
 
-
 @PostMapping("/files")
 public String uploadFile(@RequestParam("file") MultipartFile file,
                          RedirectAttributes redirectAttributes) throws IOException {
