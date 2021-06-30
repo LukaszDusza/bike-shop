@@ -1,0 +1,14 @@
+<form
+        method="post"
+        th:action="@{/add/client}"
+        xmlns:th="https://www.thymeleaf.org">
+    <input name="name" placeholder="wpisz imie" th:type="text">
+    <input name="surname" placeholder="wpisz nazwisko" th:type="text">
+    <input name="email" placeholder="wpisz email" th:type="text">
+    <input name="phoneNumber" placeholder="wpisz number telefonu" th:type="text">
+    <input name="street" placeholder="wpisz ulice" th:type="text">
+    <input name="houseNumber" placeholder="wpisz numer domu" th:type="text">
+    <input name="postalCode" placeholder="wpisz kod pocztowy" th:type="text">
+    <input name="city" placeholder="wpisz miasto" th:type="text">
+    <input type="submit" value="zatwierdz">
+</form>
