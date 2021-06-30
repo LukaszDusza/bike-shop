@@ -20,10 +20,6 @@ public class FileFrontController {
         this.fileService = fileService;
     }
 
-@GetMapping("/files")
-public String getHomePage(Model model) {
-    return "index";
-}
 
 @PostMapping("/files")
 public String uploadFile(@RequestParam("file") MultipartFile file,
