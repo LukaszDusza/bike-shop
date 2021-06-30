@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class BikeFrontController {
 
-  private BikeService bikeService;
+  private final BikeService bikeService;
 
   public BikeFrontController(BikeService bikeService) {
     this.bikeService = bikeService;
@@ -18,9 +18,7 @@ public class BikeFrontController {
 
   @GetMapping("/bike")
   public String getBikePage(Model model, @RequestParam(required = false) String info) {
-    if (info != null) {
-      model.addAttribute("info", info);
-    }
+    model.addAttribute("info", info);
     return "bike";
   }
 
