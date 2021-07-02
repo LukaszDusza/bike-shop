@@ -15,6 +15,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class FileService {
@@ -59,6 +62,13 @@ public class FileService {
         .toUriString();
     logger.info("Generated weblink for file {} : {}", fileName, link );
     return link;
+  }
+
+  //todo zrobic metodę listującą wszystkie pliki w folderze zamieniając nazwy plików w List<String> na weblinki.
+
+  public List<String> getAllFiles() throws IOException {
+    Stream<Path> files = Files.walk(Paths.get(directory)).filter(Files::isRegularFile);
+    return files.map(f -> getWebLink(f.getFileName().toString())).collect(Collectors.toList());
   }
 
   public Resource getFile(String file) {

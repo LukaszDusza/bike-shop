@@ -2,19 +2,32 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head th:replace="headers::default"></head>
 <body>
-<div class="container">
-    <table class="table table-success table-striped" th:fragment="table_success" xmlns:th="https://www.thymeleaf.org">
-        <tr>
-            <th>id</th>
-            <th>brand</th>
-            <th>price</th>
-        </tr>
-        <tr th:each = "r : ${bikes}">
-            <td th:text="${r.getId()}"></td>
-            <td th:text="${r.getBrand()}"></td>
-            <td th:text="${r.getPrice()}"></td>
-        </tr>
-    </table>
-</div>
+
+    <div class="jumbotron text-center">
+        <div class="container">
+            <h2 class="text-primary">Welcome!!</h2>
+            <h3 class="text-success">You are on the Bike Shop!!</h3>
+    </div>
+    </div>
+    <div class="col-*-*">
+        <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="bike.html" th:href="@{/bike}">Bikes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="form-client.html" th:href="@{/client}">Clients</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="files.html" th:href="@{/files}">Upload file</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="promotionCode.html" th:href="@{/promotionCode}">Get Promotion Code</a>
+        </li>
+    </ul>
+        </nav>
+    </div>
+
+
 </body>
 </html>

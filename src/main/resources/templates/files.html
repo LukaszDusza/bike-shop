@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="headers::default"></head>
+<body>
+<div class="container">
+    <div class="row">
+    <form action="#" method="post" th:action="@{/files/add}" enctype="multipart/form-data">
+        <input name="file" type="file">
+        <input type="submit" value="Upload">
+    </form>
+    </div>
+    <div class="row">
+        <ul th:each="f : ${files}">
+<!-- todo do poprawy <li><img th:text="${f}" src="${f}" alt="image"></li> -->
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

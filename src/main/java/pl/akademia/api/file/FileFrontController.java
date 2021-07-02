@@ -13,24 +13,27 @@ import java.io.IOException;
 
 @Controller
 public class FileFrontController {
-    private FileService fileService;
+  private final FileService fileService;
 
-    public FileFrontController(FileService fileService) {
+  public FileFrontController(FileService fileService) {
 
-        this.fileService = fileService;
+    this.fileService = fileService;
+  }
+
+  @GetMapping("/files")
+  public String getFile(Model model) throws IOException {
+    model.addAttribute("files", fileService.getAllFiles());
+    return "files";
+  }
+
+
+  @PostMapping("/files/add")
+  public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
+    if (file.isEmpty()) {
+      redirectAttributes.addFlashAttribute("message", "Select a file to upload");
     }
-@GetMapping("/files")
-public String getFile(){
-        return "files";
-}
-@PostMapping("/files")
-public String uploadFile(@RequestParam("file") MultipartFile file,
-                         RedirectAttributes redirectAttributes) throws IOException {
-       if (file.isEmpty()){
-           redirectAttributes.addFlashAttribute("message","Select a file to upload");
-       }
-        fileService.uploadFile(file);
-    redirectAttributes.addFlashAttribute("message","File is successfully uploaded"+file.getOriginalFilename());
-    return "redirected:/files";
-}
+    fileService.uploadFile(file);
+    redirectAttributes.addFlashAttribute("message", "File is successfully uploaded" + file.getOriginalFilename());
+    return "redirect:/files";
+  }
 }
