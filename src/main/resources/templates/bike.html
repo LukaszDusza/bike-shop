@@ -29,6 +29,10 @@
       <input name="id" class="form-control-sm" placeholder="wpisz id" th:type="text">
     </form>
 
+    <form action="/getBikeXlsFile">
+      <button type="submit" class="btn btn-outline-primary">pobierz plik z rowerami</button>
+    </form>
+
     <div class="row">
       <div class="alert alert-success w-100" role="alert" th:if="${info != null}">
         <p th:text="${info}"></p>
