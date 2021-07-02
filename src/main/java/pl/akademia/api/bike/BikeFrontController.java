@@ -83,7 +83,7 @@ public class BikeFrontController {
     return "redirect:/bike?getBikeBySerialNumber="+serialNumber;
   }
 
-  @GetMapping("/getBikeXlsFile")
+  @GetMapping("/bike/report/xls")
   public void getBikeXlsFile(HttpServletResponse response) throws IOException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
     String fileName = fileService.createBikeXlsFile();
     Resource resource = fileService.getFile(fileName);
