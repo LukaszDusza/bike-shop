@@ -15,11 +15,9 @@ public class BikeService {
 private final static Logger logger = LoggerFactory.getLogger(BikeService.class);
 
   private final BikeRepository bikeRepository;
-  private final FileService fileService;
 
-  public BikeService(BikeRepository bikeRepository, FileService fileService) {
+  public BikeService(BikeRepository bikeRepository) {
     this.bikeRepository = bikeRepository;
-    this.fileService = fileService;
   }
 
   public List<Bike> getAllBikes() {

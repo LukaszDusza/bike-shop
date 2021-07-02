@@ -91,8 +91,9 @@ public class XlsFileCreator<T> {
         }
 
         //dodawanie unikalnej nazwy do pliku. Przykład: persons_12948573628.xls
-        long mills = System.currentTimeMillis();
-        String file = path + fileName + "_" + mills + ".xls";
+//        long mills = System.currentTimeMillis();
+//        String file = path + fileName + "_" + mills + ".xls";
+        String file = path + fileName;
 
         //zapis pliku
         workbook.write(new File(file));

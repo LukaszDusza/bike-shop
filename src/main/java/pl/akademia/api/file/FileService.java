@@ -7,8 +7,12 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import pl.akademia.api.bike.Bike;
+import pl.akademia.api.bike.BikeService;
+import pl.akademia.api.utils.XlsFileCreator;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,11 +27,13 @@ import java.util.stream.Stream;
 public class FileService {
 
   private final static Logger logger = LoggerFactory.getLogger(FileService.class);
+  private final BikeService bikeService;
 
   // @Value("${files.directory}")
   private String directory = "C:\\files\\";
 
-  public FileService() throws IOException {
+  public FileService(BikeService bikeService) throws IOException {
+    this.bikeService = bikeService;
     createDirectory();
   }
 
@@ -81,5 +87,19 @@ public class FileService {
     }
     logger.error("Cannot find resource for file: {}", file);
     return null;
+  }
+
+  public String createBikeXlsFile() throws IOException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+    XlsFileCreator<Bike> xlsFileCreator = new XlsFileCreator<>(Bike.class);
+
+    List<Bike> bikes = bikeService.getAllBikes();
+
+    directory = "C:\\files\\bike_xls_files\\";
+    createDirectory();
+    long mills = System.currentTimeMillis();
+    String fileName = "bikes_" + mills + ".xls";
+
+    xlsFileCreator.createFile(bikes, directory, fileName);
+    return fileName;
   }
 }
