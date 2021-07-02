@@ -90,7 +90,7 @@ public class BikeRestController {
     return new ResponseEntity<>(bikeService.allBikesAmount(), HttpStatus.OK);
   }
 
-  @GetMapping("bikes/getBikeXlsFile")
+  @GetMapping("bikes/report/xls")
   public ResponseEntity<?> getBikeXlsFile() throws IOException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
     Resource resource = fileService.getFile(fileService.createBikeXlsFile());
     if (!resource.exists()){
